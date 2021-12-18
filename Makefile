@@ -15,7 +15,7 @@ $(NAME) : $(OBJS)
 
 RM = rm -f
 %.o : %.c 
-		$(CC) $(FLAGS) -c -I $(INCLUDE) $< -o ${<:.c=.o}
+		$(CC) -g $(FLAGS) -c -I $(INCLUDE) $< -o ${<:.c=.o}
 
 all : $(NAME)
 

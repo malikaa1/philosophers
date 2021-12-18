@@ -8,6 +8,19 @@
 #include <pthread.h>
 #include <limits.h>
 
+typedef struct s_philo
+{
+    int id;
+    int is_eating;
+    int is_sleeing;
+    int is_thinking;
+    unsigned long int start_time;
+    int is_dead;
+    int has_forks;
+
+
+} t_philo;
+
 typedef struct s_info
 {
     int nb_of_philo;
@@ -17,24 +30,13 @@ typedef struct s_info
     int number_of_times_each_philosopher_must_eat;
 
     int nb_of_forks;
-    int nb_of_available_forks;
+
+    pthread_mutex_t lock;
+
+    t_philo* philos;
 
 } t_info;
 
-typedef struct s_philo
-{
-    int id;
-    int is_eating;
-    int is_sleeing;
-    int is_thinking;
-    int start_time;
-    int is_dead;
-
-
-} t_philo;
-
-
-int main(int argc, char **argv);
 int ft_atoi(const char *str);
 t_info init_arg(int argc, char** argv);
 

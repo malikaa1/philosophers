@@ -17,7 +17,7 @@ typedef struct s_philo
     unsigned long int start_time;
     int is_dead;
     int has_forks;
-
+    pthread_t thread_id;
 
 } t_philo;
 
@@ -27,18 +27,29 @@ typedef struct s_info
     int time_to_eat;
     int time_to_die;
     int time_to_sleep;
-    int number_of_times_each_philosopher_must_eat;
+    int max_times_to_eat;
 
-    int nb_of_forks;
-
-    pthread_mutex_t lock;
-
-    t_philo* philos;
+    pthread_mutex_t log_lock;
 
 } t_info;
 
-int ft_atoi(const char *str);
-t_info init_arg(int argc, char** argv);
+typedef struct s_targs
+{
+    t_philo* philo;
+    t_info* info;
+} t_targs;
 
+
+
+int ft_atoi(const char *str);
+long int get_time();
+void print_args(t_info philo);
+t_info *init_arg(int argc, char **argv);
+void print_philo(t_philo* philo);
+void print_philos(t_philo **philos, int nb_of_philos);
+t_philo **create_philos(t_info info);
+void *ft_malloc(size_t size);
+void ft_free(void *ptr);
+void log_start(t_info *info, t_philo* philo);
 
 #endif

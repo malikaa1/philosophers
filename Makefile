@@ -1,6 +1,6 @@
 NAME = philo
 
-SRCS = main.c utils.c
+SRCS = main.c utils.c time.c parser.c philo.c malloc.c log.c
 
 CC = gcc
 

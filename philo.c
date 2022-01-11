@@ -17,16 +17,16 @@ void print_philos(t_philo **philos, int nb_of_philos)
     }
 }
 
-t_philo **create_philos(t_info info)
+t_philo **create_philos(t_info* info)
 {
     t_philo **philos;
     int i;
     i = 0;
 
-    philos = ft_malloc(info.nb_of_philo * sizeof(t_philo *) + 1);
+    philos = ft_malloc(info->nb_of_philo * sizeof(t_philo *) + 1);
     if (philos == NULL)
         return (NULL);
-    while (i < info.nb_of_philo)
+    while (i < info->nb_of_philo)
     {
         philos[i] = ft_malloc(sizeof(t_philo));
         if(philos[i] == NULL)
@@ -37,8 +37,9 @@ t_philo **create_philos(t_info info)
         philos[i]->is_sleeing = 0;
         philos[i]->is_thinking = 0;
         philos[i]->start_time = 0;
-        philos[i]->has_forks = 0;
         philos[i]->thread_id = 0;
+        philos[i]->info = info;
+        philos[i]->meals = 0;
         i++;
     }
     philos[i] = NULL;

@@ -33,9 +33,9 @@ typedef struct s_philo
     pthread_t thread_id;
     unsigned long int last_meal_time;
     int meals;
-
+    int has_forks;
     t_info* info;
-
+    pthread_mutex_t dead_lock;
 
 } t_philo;
 
@@ -55,6 +55,10 @@ void ft_free(void *ptr);
 void log_start(t_philo* philo);
 void log_eating(t_philo* philo);
 void log_taking_fork(t_philo *philo, int index);
+void log_thinking(t_philo *philo);
 void log_sleeping(t_philo *philo);
-
+void log_is_dead(t_philo *philo);
+int is_still_alive(t_philo *philo);
+int take_fork(t_philo *philo);
+void drop_fork(t_philo *philo);
 #endif

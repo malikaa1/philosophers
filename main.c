@@ -1,68 +1,91 @@
 
 #include "philo.h"
 
-int take_fork(t_philo *philo, int take)
+int nb_meals_reached(t_philo *philo)
 {
-	int id;
-	int left_id;
-	int forks_available = 0;
+	if (philo->info->max_times_to_eat == -1)
+		return (0);
 
-	id = philo->id - 1;
-	left_id = philo->id;
-
-	if (philo->id == philo->info->nb_of_philo)
-		left_id = 0;
-	pthread_mutex_lock(&philo->info->fork_lock);
-
-	if (philo->info->forks[id] == take)
-	{
-		philo->info->forks[id] == !take;
-		if (take)
-			log_taking_fork(philo, id + 1);
-		philo->info->forks[left_id] == !take;
-		if (take)
-			log_taking_fork(philo, left_id + 1);
-		forks_available = 1;
-	}
-
-	pthread_mutex_unlock(&philo->info->fork_lock);
-	return (forks_available);
+	return (philo->meals > philo->info->max_times_to_eat);
 }
 
 void eating(t_philo *philo)
 {
-	if (take_fork(philo, 1) == 1)
+	// if (nb_meals_reached(philo))
+	// 	return;
+	if (take_fork(philo) == 1)
 	{
+		philo->last_meal_time = get_time();
 		log_eating(philo);
 		usleep(philo->info->time_to_eat * 1000);
-		take_fork(philo, 0);
-		philo->last_meal_time = get_time();
+		drop_fork(philo);
 		philo->meals = philo->meals + 1;
+	}
+	else
+	{
+		if (is_still_alive(philo) == 0)
+		{
+			philo->is_dead = 1;
+			return;
+		}
 	}
 }
 
-void sleeping(t_philo *philo)
+void thinking(t_philo *philo)
 {
-	log_sleeping(philo);
-	// while (philo->is_dead != 1)
-	// {
-	// 	usleep()
-	// }
+	if (is_still_alive(philo) == 1 && philo->is_dead == 0)
+		log_thinking(philo);
+}
+
+int is_still_alive(t_philo *philo)
+{
+	unsigned long int current_time;
+	unsigned long int time;
+
+	current_time = get_time();
+	time = current_time - philo->last_meal_time;
+	if (time > philo->info->time_to_die)
+		return 0;
+	return 1;
+}
+
+int sleeping(t_philo *philo)
+{
+	unsigned long int sleep_time;
+	sleep_time = 0;
+	if (is_still_alive(philo) == 1 && philo->is_dead == 0)
+	{
+		// printf("%d sleeping is_dead = %d\n", philo->id, philo->is_dead);
+		log_sleeping(philo);
+		while (is_still_alive(philo) == 1 && sleep_time < philo->info->time_to_sleep)
+		{
+			sleep_time += 1;
+			usleep(1000);
+			if (is_still_alive(philo) == 0)
+			{
+				return (0);
+			}
+		}
+	}
+	return (0);
 }
 
 void *start(void *args)
 {
 	t_philo *philo;
+	int to_sleep;
 	philo = (t_philo *)args;
 
-	//log_start(philo);
-
-	while (philo->is_dead != 1 
-		|| (philo->info->max_times_to_eat != -1 && philo->meals > philo->info->max_times_to_eat))
+	while (philo->is_dead == 0)
 	{
 		eating(philo);
 		sleeping(philo);
-		//thinking();
+		thinking(philo);
+		if (philo->is_dead == 1)
+		{
+			log_is_dead(philo);
+			break;
+		}
 	}
 }
 
@@ -101,9 +124,9 @@ int main(int argc, char **argv)
 		printf("\n mutex init has failed\n");
 		return (1);
 	}
-	//print_args(*args);
+	// print_args(*args);
 	philos = create_philos(args);
-	//print_philos(philos, args->nb_of_philo);
+	// print_philos(philos, args->nb_of_philo);
 	create_threads(args, philos);
 	return (0);
 }

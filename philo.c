@@ -40,6 +40,8 @@ t_philo **create_philos(t_info* info)
         philos[i]->thread_id = 0;
         philos[i]->info = info;
         philos[i]->meals = 0;
+        philos[i]->last_meal_time = get_time();
+        philos[i]->has_forks = 0;
         i++;
     }
     philos[i] = NULL;

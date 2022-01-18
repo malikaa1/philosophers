@@ -17,7 +17,8 @@ typedef struct s_info
     int max_times_to_eat;
 
     pthread_mutex_t fork_lock;
-
+    pthread_mutex_t stop_lock;
+    pthread_mutex_t dead_lock;
     int* forks;
 
 } t_info;
@@ -35,7 +36,7 @@ typedef struct s_philo
     int meals;
     int has_forks;
     t_info* info;
-    pthread_mutex_t dead_lock;
+    int must_stop;
 
 } t_philo;
 
@@ -61,4 +62,7 @@ void log_is_dead(t_philo *philo);
 int is_still_alive(t_philo *philo);
 int take_fork(t_philo *philo);
 void drop_fork(t_philo *philo);
+int is_dead(t_philo *philo);
+void set_is_dead(t_philo *philo, int is_dead);
+int must_stop(t_philo *philo);
 #endif

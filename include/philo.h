@@ -19,6 +19,8 @@ typedef struct s_info
     pthread_mutex_t fork_lock;
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
+    pthread_mutex_t print_lock;
+    
     int* forks;
 
 } t_info;
@@ -65,4 +67,8 @@ void drop_fork(t_philo *philo);
 int is_dead(t_philo *philo);
 void set_is_dead(t_philo *philo, int is_dead);
 int must_stop(t_philo *philo);
+void *check_end(void *args);
+void mark_as_stop(t_philo **philos);
+int check_must_stop(t_philo **philos);
+
 #endif

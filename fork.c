@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/16 23:58:43 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:24:19 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void print_forks_state(t_philo *philo)
 	int i;
 	i = 0;
 	pthread_mutex_lock(&philo->info->fork_lock);
-
 	while (philo->info->forks[i] != -1)
 	{
 		printf("%d ", philo->info->forks[i]);
 		i++;
 	}
-
 	printf("\n");
 	pthread_mutex_unlock(&philo->info->fork_lock);
 }
@@ -41,7 +39,6 @@ int take_fork(t_philo *philo)
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
 	pthread_mutex_lock(&philo->info->fork_lock);
-
 	if (philo->info->forks[id] == 1 && philo->info->forks[left_id] == 1)
 	{
 		forks_available = 1;
@@ -51,7 +48,6 @@ int take_fork(t_philo *philo)
 		log_taking_fork(philo, left_id + 1);
 		philo->has_forks = 1;
 	}
-
 	pthread_mutex_unlock(&philo->info->fork_lock);
 	return (forks_available);
 }
@@ -67,10 +63,9 @@ void drop_fork(t_philo *philo)
 
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
-	pthread_mutex_lock(&philo->info->fork_lock);
-
+	//pthread_mutex_lock(&philo->info->fork_lock);
 	philo->info->forks[id] = 1;
 	philo->info->forks[left_id] = 1;
 	philo->has_forks = 0;
-	pthread_mutex_unlock(&philo->info->fork_lock);
+	//pthread_mutex_unlock(&philo->info->fork_lock);
 }

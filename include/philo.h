@@ -20,7 +20,7 @@ typedef struct s_info
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
-    
+    int must_stop;
     int* forks;
 
 } t_info;
@@ -38,7 +38,6 @@ typedef struct s_philo
     int meals;
     int has_forks;
     t_info* info;
-    int must_stop;
 
 } t_philo;
 

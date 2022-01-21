@@ -26,9 +26,10 @@ void eating(t_philo *philo)
 	}
 	else
 	{
-		if (is_still_alive(philo) == 0)
+		if (is_still_alive(philo) == 0 || philo->is_dead == 1)
 		{
 			set_is_dead(philo, 1);
+			philo->info->must_stop = 1;
 			pthread_mutex_lock(&philo->info->print_lock);
 			log_is_dead(philo);
 			pthread_mutex_unlock(&philo->info->print_lock);
@@ -52,6 +53,7 @@ void thinking(t_philo *philo)
 void sleeping(t_philo *philo)
 {
 	unsigned long int sleep_time;
+	
 	if (must_stop(philo))
 		return;
 	sleep_time = 0;
@@ -75,15 +77,18 @@ void *start(void *args)
 {
 	t_philo *philo;
 	int to_sleep;
-	philo = (t_philo *)args;
 
-	while (!is_dead(philo) && !must_stop(philo))
+	philo = (t_philo *)args;
+	while (!is_dead(philo) && !must_stop(philo) &&  philo->info->max_times_to_eat > philo->meals)
 	{
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
 		if (is_dead(philo) == 1)
 		{
+			pthread_mutex_lock(&philo->info->stop_lock);
+			philo->info->must_stop = 1;
+			pthread_mutex_unlock(&philo->info->stop_lock);
 			break;
 		}
 	}
@@ -95,8 +100,6 @@ void create_threads(t_info *info, t_philo **philos)
 	pthread_t id;
 
 	i = 0;
-	pthread_create(&id, NULL, &check_end, philos);
-
 	while (i < info->nb_of_philo)
 	{
 		pthread_create(&philos[i]->thread_id, NULL, &start, philos[i]);
@@ -108,7 +111,6 @@ void create_threads(t_info *info, t_philo **philos)
 		pthread_join(philos[i]->thread_id, NULL);
 		i++;
 	}
-	pthread_join(id, NULL);
 }
 
 int main(int argc, char **argv)

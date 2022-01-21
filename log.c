@@ -1,9 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   log.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/19 20:49:18 by mrahmani          #+#    #+#             */
+/*   Updated: 2022/01/19 20:49:21 by mrahmani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void log_start(t_philo *philo)
-{
-    printf("%ld : Philo %d started in thread #%ld\n", get_time(), philo->id, philo->thread_id);
-}
+#include "philo.h"
 
 void log_eating(t_philo *philo)
 {

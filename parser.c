@@ -1,13 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/19 20:46:54 by mrahmani          #+#    #+#             */
+/*   Updated: 2022/01/19 20:47:25 by mrahmani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void print_args(t_info philo)
-{
-	printf("%-42s : %d\n", "number of philosophers", philo.nb_of_philo);
-	printf("%-42s : %d\n", "number of times each philosopher must eat", philo.max_times_to_eat);
-	printf("%-42s : %d\n", "time to die", philo.time_to_die);
-	printf("%-42s : %d\n", "time to eat", philo.time_to_eat);
-	printf("%-42s : %d\n", "time to sleep", philo.time_to_sleep);
-}
+#include "philo.h"
 
 int *init_forks(t_info* info)
 {
@@ -44,6 +47,7 @@ t_info* init_arg(int argc, char **argv)
 	else
 		args->max_times_to_eat = -1;
 	args->forks = init_forks(args);
+	args->must_stop = 0;
 	return (args);
 }
 

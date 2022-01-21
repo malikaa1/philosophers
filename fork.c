@@ -6,26 +6,11 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/19 12:24:19 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:53:19 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "philo.h"
-
-void print_forks_state(t_philo *philo)
-{
-	int i;
-	i = 0;
-	pthread_mutex_lock(&philo->info->fork_lock);
-	while (philo->info->forks[i] != -1)
-	{
-		printf("%d ", philo->info->forks[i]);
-		i++;
-	}
-	printf("\n");
-	pthread_mutex_unlock(&philo->info->fork_lock);
-}
 
 int take_fork(t_philo *philo)
 {
@@ -35,7 +20,11 @@ int take_fork(t_philo *philo)
 
 	id = philo->id - 1;
 	left_id = philo->id;
-
+	if (philo->info->nb_of_philo == 1)
+	{
+		set_is_dead(philo, 1);
+		return (-1);
+	}
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
 	pthread_mutex_lock(&philo->info->fork_lock);
@@ -63,9 +52,9 @@ void drop_fork(t_philo *philo)
 
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
-	//pthread_mutex_lock(&philo->info->fork_lock);
+	pthread_mutex_lock(&philo->info->fork_lock);
 	philo->info->forks[id] = 1;
 	philo->info->forks[left_id] = 1;
 	philo->has_forks = 0;
-	//pthread_mutex_unlock(&philo->info->fork_lock);
+	pthread_mutex_unlock(&philo->info->fork_lock);
 }

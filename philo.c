@@ -1,33 +1,11 @@
 #include "philo.h"
 
-void print_philo(t_philo *philo)
-{
-    printf("%-42s : %d\n", "id", philo->id);
-    printf("%-42s : %d\n", "dead", is_dead(philo));
-}
-
-void print_philos(t_philo **philos, int nb_of_philos)
-{
-    int i;
-    i = 0;
-
-    printf("----------------------\n");
-
-    while (i < nb_of_philos)
-    {
-        print_philo(philos[i]);
-        i++;
-    }
-
-    printf("----------------------\n");
-}
-
 t_philo **create_philos(t_info *info)
 {
     t_philo **philos;
     int i;
+    
     i = 0;
-
     philos = ft_malloc(info->nb_of_philo * sizeof(t_philo *) + 1);
     if (philos == NULL)
         return (NULL);
@@ -47,7 +25,6 @@ t_philo **create_philos(t_info *info)
         philos[i]->meals = 0;
         philos[i]->last_meal_time = get_time();
         philos[i]->has_forks = 0;
-        philos[i]->must_stop = 0;
         i++;
     }
     philos[i] = NULL;

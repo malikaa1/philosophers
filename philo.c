@@ -22,7 +22,6 @@ t_philo **create_philos(t_info *info)
         philos[i]->meals = 0;
         philos[i]->last_meal_time = get_time();
         philos[i]->has_forks = 0;
-        philos[i]->fork_attempt = 0;
         i++;
     }
     philos[i] = NULL;
@@ -50,7 +49,13 @@ void create_threads(t_info *info, t_philo **philos)
 
 void init_mutex(t_info *args)
 {
-    pthread_mutex_init(&args->fork_lock, NULL);
+    int i;
+    i = 0;
+    while (i < args->nb_of_philo)
+    {
+        pthread_mutex_init(&args->fork_locks[i++], NULL);
+    }
+
     pthread_mutex_init(&args->dead_lock, NULL);
     pthread_mutex_init(&args->print_lock, NULL);
     pthread_mutex_init(&args->stop_lock, NULL);

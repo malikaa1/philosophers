@@ -17,7 +17,7 @@ typedef struct s_info
     int max_times_to_eat;
     int must_stop;
     int *forks;
-    pthread_mutex_t fork_lock;
+    pthread_mutex_t* fork_locks;
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
@@ -34,13 +34,12 @@ typedef struct s_philo
     int has_forks;
     pthread_t thread_id;
     t_info *info;
-    int fork_attempt;
-
 } t_philo;
 
 int ft_atoi(const char *str);
 int ft_isdigit(char c);
 long int get_time();
+long int get_d_time();
 void print_args(t_info philo);
 t_info *init_arg(int argc, char **argv);
 void print_philo(t_philo *philo);
@@ -51,12 +50,14 @@ void ft_free(void *ptr);
 
 void log_start(t_philo *philo);
 void log_eating(t_philo *philo);
+void log_done_eating(t_philo *philo);
 void log_taking_fork(t_philo *philo, int index);
 void log_thinking(t_philo *philo);
 void log_sleeping(t_philo *philo);
+void log_done_sleeping(t_philo *philo);
 void log_is_dead(t_philo *philo);
 int is_still_alive(t_philo *philo);
-int take_fork(t_philo *philo);
+void take_fork(t_philo *philo);
 void drop_fork(t_philo *philo);
 int is_dead(t_philo *philo);
 void set_is_dead(t_philo *philo, int is_dead);

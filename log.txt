@@ -1,0 +1,520 @@
+2 : Philo 2 has checked forks
+1 1 1 1 1 
+2 : Philo 2 has taken a fork #2
+2 : Philo 2 has taken a fork #3
+1 0 0 1 1 
+2 : Philo 2 is eating
+2 : Philo 3 has checked forks
+1 0 0 1 1 
+2 : Philo 3 failed to get forks #3 and #4
+2 : Philo 3 is sleeping 
+2 : Philo 1 has checked forks
+1 0 0 1 1 
+2 : Philo 1 failed to get forks #1 and #2
+2 : Philo 1 is sleeping 
+2 : Philo 4 has checked forks
+1 0 0 1 1 
+2 : Philo 4 has taken a fork #4
+2 : Philo 4 has taken a fork #5
+1 0 0 0 0 
+2 : Philo 4 is eating
+2 : Philo 5 has checked forks
+1 0 0 0 0 
+2 : Philo 5 failed to get forks #5 and #1
+2 : Philo 5 is sleeping 
+202 : Philo 2 finished eating
+202 : Philo 2 has dropped forks #2 and #3
+202 : Philo 2 is sleeping 
+202 : Philo 4 finished eating
+202 : Philo 4 has dropped forks #4 and #5
+202 : Philo 4 is sleeping 
+270 : Philo 5 has finished sleeping 
+270 : Philo 5 is thinking 
+270 : Philo 5 has checked forks
+1 1 1 1 1 
+270 : Philo 5 has taken a fork #5
+270 : Philo 5 has taken a fork #1
+0 1 1 1 0 
+270 : Philo 5 is eating
+270 : Philo 1 has finished sleeping 
+270 : Philo 1 is thinking 
+270 : Philo 1 has checked forks
+0 1 1 1 0 
+270 : Philo 1 failed to get forks #1 and #2
+270 : Philo 1 is sleeping 
+270 : Philo 3 has finished sleeping 
+270 : Philo 3 is thinking 
+270 : Philo 3 has checked forks
+0 1 1 1 0 
+270 : Philo 3 has taken a fork #3
+270 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+270 : Philo 3 is eating
+431 : Philo 4 has finished sleeping 
+431 : Philo 4 is thinking 
+431 : Philo 4 has checked forks
+0 1 0 0 0 
+431 : Philo 4 failed to get forks #4 and #5
+431 : Philo 4 is sleeping 
+431 : Philo 2 has finished sleeping 
+431 : Philo 2 is thinking 
+431 : Philo 2 has checked forks
+0 1 0 0 0 
+431 : Philo 2 failed to get forks #2 and #3
+431 : Philo 2 is sleeping 
+471 : Philo 5 finished eating
+471 : Philo 5 has dropped forks #5 and #1
+471 : Philo 5 is sleeping 
+471 : Philo 3 finished eating
+471 : Philo 3 has dropped forks #3 and #4
+471 : Philo 3 is sleeping 
+498 : Philo 1 has finished sleeping 
+498 : Philo 1 is thinking 
+498 : Philo 1 has checked forks
+1 1 1 1 1 
+498 : Philo 1 has taken a fork #1
+498 : Philo 1 has taken a fork #2
+0 0 1 1 1 
+498 : Philo 1 is eating
+659 : Philo 2 has finished sleeping 
+659 : Philo 2 is thinking 
+659 : Philo 2 has checked forks
+0 0 1 1 1 
+659 : Philo 2 failed to get forks #2 and #3
+659 : Philo 2 is sleeping 
+659 : Philo 4 has finished sleeping 
+659 : Philo 4 is thinking 
+659 : Philo 4 has checked forks
+0 0 1 1 1 
+659 : Philo 4 has taken a fork #4
+659 : Philo 4 has taken a fork #5
+0 0 1 0 0 
+659 : Philo 4 is eating
+693 : Philo 5 has finished sleeping 
+693 : Philo 5 is thinking 
+693 : Philo 5 has checked forks
+0 0 1 0 0 
+693 : Philo 5 failed to get forks #5 and #1
+693 : Philo 5 is sleeping 
+693 : Philo 3 has finished sleeping 
+693 : Philo 3 is thinking 
+693 : Philo 3 has checked forks
+0 0 1 0 0 
+693 : Philo 3 failed to get forks #3 and #4
+693 : Philo 3 is sleeping 
+700 : Philo 1 finished eating
+700 : Philo 1 has dropped forks #1 and #2
+700 : Philo 1 is sleeping 
+812 : Philo 2 has checked forks
+1 1 1 0 0 
+812 : Philo 2 has taken a fork #2
+812 : Philo 2 has taken a fork #3
+1 0 0 0 0 
+812 : Philo 2 is eating
+860 : Philo 4 finished eating
+860 : Philo 4 has dropped forks #4 and #5
+860 : Philo 4 is sleeping 
+939 : Philo 5 has finished sleeping 
+939 : Philo 5 is thinking 
+939 : Philo 5 has checked forks
+1 0 0 1 1 
+939 : Philo 5 has taken a fork #5
+939 : Philo 5 has taken a fork #1
+0 0 0 1 0 
+939 : Philo 5 is eating
+939 : Philo 1 has finished sleeping 
+939 : Philo 1 is thinking 
+939 : Philo 1 has checked forks
+0 0 0 1 0 
+939 : Philo 1 failed to get forks #1 and #2
+939 : Philo 1 is sleeping 
+939 : Philo 3 has finished sleeping 
+939 : Philo 3 is thinking 
+939 : Philo 3 has checked forks
+0 0 0 1 0 
+939 : Philo 3 failed to get forks #3 and #4
+939 : Philo 3 is sleeping 
+1012 : Philo 2 finished eating
+1012 : Philo 2 has dropped forks #2 and #3
+1012 : Philo 2 is sleeping 
+1081 : Philo 3 has checked forks
+0 1 1 1 0 
+1081 : Philo 3 has taken a fork #3
+1081 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+1081 : Philo 3 is eating
+1103 : Philo 4 has finished sleeping 
+1103 : Philo 4 is thinking 
+1103 : Philo 4 has checked forks
+0 1 0 0 0 
+1103 : Philo 4 failed to get forks #4 and #5
+1103 : Philo 4 is sleeping 
+1144 : Philo 5 finished eating
+1144 : Philo 5 has dropped forks #5 and #1
+1144 : Philo 5 is sleeping 
+1199 : Philo 1 has finished sleeping 
+1199 : Philo 1 is thinking 
+1199 : Philo 1 has checked forks
+1 1 0 0 1 
+1199 : Philo 1 has taken a fork #1
+1199 : Philo 1 has taken a fork #2
+0 0 0 0 1 
+1199 : Philo 1 is eating
+1280 : Philo 2 has finished sleeping 
+1280 : Philo 2 is thinking 
+1280 : Philo 2 has checked forks
+0 0 0 0 1 
+1280 : Philo 2 failed to get forks #2 and #3
+1280 : Philo 2 is sleeping 
+1281 : Philo 3 finished eating
+1281 : Philo 3 has dropped forks #3 and #4
+1281 : Philo 3 is sleeping 
+1370 : Philo 4 has finished sleeping 
+1370 : Philo 4 is thinking 
+1370 : Philo 4 has checked forks
+0 0 1 1 1 
+1370 : Philo 4 has taken a fork #4
+1370 : Philo 4 has taken a fork #5
+0 0 1 0 0 
+1370 : Philo 4 is eating
+1393 : Philo 5 has finished sleeping 
+1393 : Philo 5 is thinking 
+1393 : Philo 5 has checked forks
+0 0 1 0 0 
+1393 : Philo 5 failed to get forks #5 and #1
+1393 : Philo 5 is sleeping 
+1400 : Philo 1 finished eating
+1400 : Philo 1 has dropped forks #1 and #2
+1400 : Philo 1 is sleeping 
+1504 : Philo 3 has finished sleeping 
+1504 : Philo 3 is thinking 
+1504 : Philo 3 has checked forks
+1 1 1 0 0 
+1504 : Philo 3 failed to get forks #3 and #4
+1504 : Philo 3 is sleeping 
+1504 : Philo 2 has finished sleeping 
+1504 : Philo 2 is thinking 
+1504 : Philo 2 has checked forks
+1 1 1 0 0 
+1504 : Philo 2 has taken a fork #2
+1504 : Philo 2 has taken a fork #3
+1 0 0 0 0 
+1504 : Philo 2 is eating
+1570 : Philo 4 finished eating
+1570 : Philo 4 has dropped forks #4 and #5
+1570 : Philo 4 is sleeping 
+1614 : Philo 5 has finished sleeping 
+1614 : Philo 5 is thinking 
+1614 : Philo 5 has checked forks
+1 0 0 1 1 
+1614 : Philo 5 has taken a fork #5
+1614 : Philo 5 has taken a fork #1
+0 0 0 1 0 
+1614 : Philo 5 is eating
+1619 : Philo 1 has finished sleeping 
+1619 : Philo 1 is thinking 
+1619 : Philo 1 has checked forks
+0 0 0 1 0 
+1619 : Philo 1 failed to get forks #1 and #2
+1619 : Philo 1 is sleeping 
+1705 : Philo 2 finished eating
+1705 : Philo 2 has dropped forks #2 and #3
+1705 : Philo 2 is sleeping 
+1728 : Philo 3 has finished sleeping 
+1728 : Philo 3 is thinking 
+1728 : Philo 3 has checked forks
+0 1 1 1 0 
+1728 : Philo 3 has taken a fork #3
+1728 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+1728 : Philo 3 is eating
+1794 : Philo 4 has finished sleeping 
+1794 : Philo 4 is thinking 
+1794 : Philo 4 has checked forks
+0 1 0 0 0 
+1794 : Philo 4 failed to get forks #4 and #5
+1794 : Philo 4 is sleeping 
+1815 : Philo 5 finished eating
+1815 : Philo 5 has dropped forks #5 and #1
+1815 : Philo 5 is sleeping 
+1843 : Philo 1 has finished sleeping 
+1843 : Philo 1 is thinking 
+1843 : Philo 1 has checked forks
+1 1 0 0 1 
+1843 : Philo 1 has taken a fork #1
+1843 : Philo 1 has taken a fork #2
+0 0 0 0 1 
+1843 : Philo 1 is eating
+1928 : Philo 3 finished eating
+1928 : Philo 3 has dropped forks #3 and #4
+1928 : Philo 3 is sleeping 
+1940 : Philo 2 has finished sleeping 
+1940 : Philo 2 is thinking 
+1940 : Philo 2 has checked forks
+0 0 1 1 1 
+1940 : Philo 2 failed to get forks #2 and #3
+1940 : Philo 2 is sleeping 
+2031 : Philo 4 has finished sleeping 
+2031 : Philo 4 is thinking 
+2031 : Philo 4 has checked forks
+0 0 1 1 1 
+2031 : Philo 4 has taken a fork #4
+2031 : Philo 4 has taken a fork #5
+0 0 1 0 0 
+2031 : Philo 4 is eating
+2044 : Philo 1 finished eating
+2044 : Philo 1 has dropped forks #1 and #2
+2044 : Philo 1 is sleeping 
+2054 : Philo 5 has finished sleeping 
+2054 : Philo 5 is thinking 
+2054 : Philo 5 has checked forks
+1 1 1 0 0 
+2054 : Philo 5 failed to get forks #5 and #1
+2054 : Philo 5 is sleeping 
+2153 : Philo 3 has finished sleeping 
+2153 : Philo 3 is thinking 
+2153 : Philo 3 has checked forks
+1 1 1 0 0 
+2153 : Philo 3 failed to get forks #3 and #4
+2153 : Philo 3 is sleeping 
+2164 : Philo 2 has finished sleeping 
+2164 : Philo 2 is thinking 
+2164 : Philo 2 has checked forks
+1 1 1 0 0 
+2164 : Philo 2 has taken a fork #2
+2164 : Philo 2 has taken a fork #3
+1 0 0 0 0 
+2164 : Philo 2 is eating
+2244 : Philo 4 finished eating
+2244 : Philo 4 has dropped forks #4 and #5
+2244 : Philo 4 is sleeping 
+2294 : Philo 1 has finished sleeping 
+2294 : Philo 1 is thinking 
+2294 : Philo 1 has checked forks
+1 0 0 1 1 
+2294 : Philo 1 failed to get forks #1 and #2
+2294 : Philo 1 is sleeping 
+2305 : Philo 5 has finished sleeping 
+2305 : Philo 5 is thinking 
+2305 : Philo 5 has checked forks
+1 0 0 1 1 
+2305 : Philo 5 has taken a fork #5
+2305 : Philo 5 has taken a fork #1
+0 0 0 1 0 
+2305 : Philo 5 is eating
+2366 : Philo 2 finished eating
+2366 : Philo 2 has dropped forks #2 and #3
+2366 : Philo 2 is sleeping 
+2403 : Philo 3 has finished sleeping 
+2403 : Philo 3 is thinking 
+2403 : Philo 3 has checked forks
+0 1 1 1 0 
+2403 : Philo 3 has taken a fork #3
+2403 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+2403 : Philo 3 is eating
+2471 : Philo 4 has finished sleeping 
+2471 : Philo 4 is thinking 
+2471 : Philo 4 has checked forks
+0 1 0 0 0 
+2471 : Philo 4 failed to get forks #4 and #5
+2471 : Philo 4 is sleeping 
+2505 : Philo 5 finished eating
+2505 : Philo 5 has dropped forks #5 and #1
+2505 : Philo 5 is sleeping 
+2517 : Philo 1 has finished sleeping 
+2517 : Philo 1 is thinking 
+2517 : Philo 1 has checked forks
+1 1 0 0 1 
+2517 : Philo 1 has taken a fork #1
+2517 : Philo 1 has taken a fork #2
+0 0 0 0 1 
+2517 : Philo 1 is eating
+2596 : Philo 2 has finished sleeping 
+2596 : Philo 2 is thinking 
+2596 : Philo 2 has checked forks
+0 0 0 0 1 
+2596 : Philo 2 failed to get forks #2 and #3
+2596 : Philo 2 is sleeping 
+2603 : Philo 3 finished eating
+2603 : Philo 3 has dropped forks #3 and #4
+2603 : Philo 3 is sleeping 
+2698 : Philo 4 has finished sleeping 
+2698 : Philo 4 is thinking 
+2698 : Philo 4 has checked forks
+0 0 1 1 1 
+2698 : Philo 4 has taken a fork #4
+2698 : Philo 4 has taken a fork #5
+0 0 1 0 0 
+2698 : Philo 4 is eating
+2719 : Philo 1 finished eating
+2719 : Philo 1 has dropped forks #1 and #2
+2719 : Philo 1 is sleeping 
+2731 : Philo 5 has finished sleeping 
+2731 : Philo 5 is thinking 
+2731 : Philo 5 has checked forks
+1 1 1 0 0 
+2731 : Philo 5 failed to get forks #5 and #1
+2731 : Philo 5 is sleeping 
+2825 : Philo 3 has finished sleeping 
+2825 : Philo 3 is thinking 
+2825 : Philo 3 has checked forks
+1 1 1 0 0 
+2825 : Philo 3 failed to get forks #3 and #4
+2825 : Philo 3 is sleeping 
+2826 : Philo 2 has finished sleeping 
+2826 : Philo 2 is thinking 
+2826 : Philo 2 has checked forks
+1 1 1 0 0 
+2826 : Philo 2 has taken a fork #2
+2826 : Philo 2 has taken a fork #3
+1 0 0 0 0 
+2826 : Philo 2 is eating
+2907 : Philo 4 finished eating
+2907 : Philo 4 has dropped forks #4 and #5
+2907 : Philo 4 is sleeping 
+2963 : Philo 1 has finished sleeping 
+2963 : Philo 1 is thinking 
+2963 : Philo 1 has checked forks
+1 0 0 1 1 
+2963 : Philo 1 failed to get forks #1 and #2
+2963 : Philo 1 is sleeping 
+2976 : Philo 5 has finished sleeping 
+2976 : Philo 5 is thinking 
+2976 : Philo 5 has checked forks
+1 0 0 1 1 
+2976 : Philo 5 has taken a fork #5
+2976 : Philo 5 has taken a fork #1
+0 0 0 1 0 
+2976 : Philo 5 is eating
+3026 : Philo 2 finished eating
+3026 : Philo 2 has dropped forks #2 and #3
+3026 : Philo 2 is sleeping 
+3070 : Philo 3 has finished sleeping 
+3070 : Philo 3 is thinking 
+3070 : Philo 3 has checked forks
+0 1 1 1 0 
+3070 : Philo 3 has taken a fork #3
+3070 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+3070 : Philo 3 is eating
+3135 : Philo 4 has finished sleeping 
+3136 : Philo 4 is thinking 
+3136 : Philo 4 has checked forks
+0 1 0 0 0 
+3136 : Philo 4 failed to get forks #4 and #5
+3136 : Philo 4 is sleeping 
+3178 : Philo 5 finished eating
+3178 : Philo 5 has dropped forks #5 and #1
+3178 : Philo 5 is sleeping 
+3194 : Philo 1 has finished sleeping 
+3194 : Philo 1 is thinking 
+3194 : Philo 1 has checked forks
+1 1 0 0 1 
+3194 : Philo 1 has taken a fork #1
+3194 : Philo 1 has taken a fork #2
+0 0 0 0 1 
+3194 : Philo 1 is eating
+3251 : Philo 2 has finished sleeping 
+3251 : Philo 2 is thinking 
+3251 : Philo 2 has checked forks
+0 0 0 0 1 
+3251 : Philo 2 failed to get forks #2 and #3
+3251 : Philo 2 is sleeping 
+3271 : Philo 3 finished eating
+3271 : Philo 3 has dropped forks #3 and #4
+3271 : Philo 3 is sleeping 
+3395 : Philo 1 finished eating
+3395 : Philo 1 has dropped forks #1 and #2
+3395 : Philo 1 is sleeping 
+3405 : Philo 4 has finished sleeping 
+3405 : Philo 4 is thinking 
+3405 : Philo 4 has checked forks
+1 1 1 1 1 
+3405 : Philo 4 has taken a fork #4
+3405 : Philo 4 has taken a fork #5
+1 1 1 0 0 
+3405 : Philo 4 is eating
+3438 : Philo 5 has finished sleeping 
+3438 : Philo 5 is thinking 
+3438 : Philo 5 has checked forks
+1 1 1 0 0 
+3438 : Philo 5 failed to get forks #5 and #1
+3438 : Philo 5 is sleeping 
+3514 : Philo 2 has finished sleeping 
+3514 : Philo 2 is thinking 
+3514 : Philo 2 has checked forks
+1 1 1 0 0 
+3514 : Philo 2 has taken a fork #2
+3514 : Philo 2 has taken a fork #3
+1 0 0 0 0 
+3514 : Philo 2 is eating
+3526 : Philo 3 has finished sleeping 
+3526 : Philo 3 is thinking 
+3526 : Philo 3 has checked forks
+1 0 0 0 0 
+3526 : Philo 3 failed to get forks #3 and #4
+3526 : Philo 3 is sleeping 
+3609 : Philo 4 finished eating
+3609 : Philo 4 has dropped forks #4 and #5
+3609 : Philo 4 is sleeping 
+3615 : Philo 1 has finished sleeping 
+3615 : Philo 1 is thinking 
+3615 : Philo 1 has checked forks
+1 0 0 1 1 
+3615 : Philo 1 failed to get forks #1 and #2
+3615 : Philo 1 is sleeping 
+3659 : Philo 5 has finished sleeping 
+3659 : Philo 5 is thinking 
+3659 : Philo 5 has checked forks
+1 0 0 1 1 
+3659 : Philo 5 has taken a fork #5
+3659 : Philo 5 has taken a fork #1
+0 0 0 1 0 
+3659 : Philo 5 is eating
+3715 : Philo 2 finished eating
+3715 : Philo 2 has dropped forks #2 and #3
+3715 : Philo 2 is sleeping 
+3751 : Philo 3 has finished sleeping 
+3751 : Philo 3 is thinking 
+3751 : Philo 3 has checked forks
+0 1 1 1 0 
+3751 : Philo 3 has taken a fork #3
+3751 : Philo 3 has taken a fork #4
+0 1 0 0 0 
+3751 : Philo 3 is eating
+3832 : Philo 4 has finished sleeping 
+3832 : Philo 4 is thinking 
+3832 : Philo 4 has checked forks
+0 1 0 0 0 
+3832 : Philo 4 failed to get forks #4 and #5
+3832 : Philo 4 is sleeping 
+3842 : Philo 1 has finished sleeping 
+3842 : Philo 1 is thinking 
+3842 : Philo 1 has checked forks
+0 1 0 0 0 
+3842 : Philo 1 failed to get forks #1 and #2
+3842 : Philo 1 is sleeping 
+3861 : Philo 5 finished eating
+3861 : Philo 5 has dropped forks #5 and #1
+3861 : Philo 5 is sleeping 
+3952 : Philo 3 finished eating
+3952 : Philo 3 has dropped forks #3 and #4
+3952 : Philo 3 is sleeping 
+3954 : Philo 2 has finished sleeping 
+3954 : Philo 2 is thinking 
+3954 : Philo 2 has checked forks
+1 1 1 1 1 
+3954 : Philo 2 has taken a fork #2
+3954 : Philo 2 has taken a fork #3
+1 0 0 1 1 
+3954 : Philo 2 is eating
+3999 : Philo 1 has checked forks
+1 0 0 1 1 
+3999 : Philo 1 failed to get forks #1 and #2
+3999 : Philo 1 is dead 
+4064 : Philo 4 has finished sleeping 
+4097 : Philo 5 has finished sleeping 
+4154 : Philo 2 finished eating
+4154 : Philo 2 has dropped forks #2 and #3
+4180 : Philo 3 has finished sleeping 

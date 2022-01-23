@@ -1,17 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
+/*   Updated: 2022/01/23 00:05:49 by mrahmani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
-int nb_meals_reached(t_philo *philo)
-{
-	if (philo->info->max_times_to_eat == -1)
-		return (0);
-	return (philo->meals > philo->info->max_times_to_eat);
-}
-
 void eating(t_philo *philo)
 {
-	// if (nb_meals_reached(philo))
-	// 	return;
 	if (must_stop(philo))
 		return;
 	if (take_fork(philo) == 1)
@@ -22,11 +24,14 @@ void eating(t_philo *philo)
 		pthread_mutex_unlock(&philo->info->print_lock);
 		usleep(philo->info->time_to_eat * 1000);
 		drop_fork(philo);
+		printf("%ld : philo %d has dropped forks\n", get_time(), philo->id);
 		philo->meals = philo->meals + 1;
+		philo->fork_attempt = 0;
 	}
 	else
 	{
-		if (is_still_alive(philo) == 0 || philo->is_dead == 1)
+		printf("%ld : philo %d failed to get forks\n", get_time(), philo->id);
+		if (is_still_alive(philo) == 0)
 		{
 			set_is_dead(philo, 1);
 			philo->info->must_stop = 1;
@@ -35,6 +40,7 @@ void eating(t_philo *philo)
 			pthread_mutex_unlock(&philo->info->print_lock);
 			return;
 		}
+		philo->fork_attempt++;
 	}
 }
 
@@ -53,7 +59,7 @@ void thinking(t_philo *philo)
 void sleeping(t_philo *philo)
 {
 	unsigned long int sleep_time;
-	
+
 	if (must_stop(philo))
 		return;
 	sleep_time = 0;
@@ -79,7 +85,7 @@ void *start(void *args)
 	int to_sleep;
 
 	philo = (t_philo *)args;
-	while (!is_dead(philo) && !must_stop(philo) &&  philo->info->max_times_to_eat > philo->meals)
+	while (!is_dead(philo) && !must_stop(philo) && (philo->info->max_times_to_eat > philo->meals || philo->info->max_times_to_eat == -1))
 	{
 		eating(philo);
 		sleeping(philo);
@@ -94,43 +100,19 @@ void *start(void *args)
 	}
 }
 
-void create_threads(t_info *info, t_philo **philos)
-{
-	int i;
-	pthread_t id;
-
-	i = 0;
-	while (i < info->nb_of_philo)
-	{
-		pthread_create(&philos[i]->thread_id, NULL, &start, philos[i]);
-		i++;
-	}
-	i = 0;
-	while (i < info->nb_of_philo)
-	{
-		pthread_join(philos[i]->thread_id, NULL);
-		i++;
-	}
-}
-
 int main(int argc, char **argv)
 {
 	t_info *args;
 	t_philo **philos;
 
-	int i = 0;
-
-	if (argc != 5 && argc != 6)
-	{
-		printf("Usage : ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [max_meals]\n");
-		return (0);
-	}
+	if (check_error(argc, argv) == 0)
+		return (1);
 	args = init_arg(argc, argv);
-	pthread_mutex_init(&args->fork_lock, NULL);
-	pthread_mutex_init(&args->dead_lock, NULL);
-	pthread_mutex_init(&args->print_lock, NULL);
-	pthread_mutex_init(&args->stop_lock, NULL);
+	init_mutex(args);
 	philos = create_philos(args);
 	create_threads(args, philos);
+	ft_free(args);
+	ft_free(args->forks);
+	ft_free(philos);
 	return (0);
 }

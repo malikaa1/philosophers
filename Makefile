@@ -1,6 +1,6 @@
 NAME = philo
 
-SRCS = main.c utils.c time.c parser.c philo.c malloc.c log.c fork.c stop.c dead.c
+SRCS = main.c utils.c time.c parser.c philo.c malloc.c log.c fork.c  states.c
 
 CC = gcc
 
@@ -27,6 +27,8 @@ clean :
 fclean :	 clean
 		${RM} ${NAME}
 
+
 re:	fclean all
+
 .PHONY:		all clean fclean re
 

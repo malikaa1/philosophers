@@ -10,11 +10,10 @@
             "request": "launch",
             "program": "/home/user42/projects/philo/philosophers/philo",
             "args": [
-                "4",
+                "5",
+                "800",
                 "200",
-                "100",
-                "100",
-                "2"
+                "200"
             ],
             "stopAtEntry": false,
             "cwd": "/home/user42/projects/philo/philosophers",

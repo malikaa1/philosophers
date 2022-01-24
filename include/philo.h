@@ -17,7 +17,7 @@ typedef struct s_info
     int max_times_to_eat;
     int must_stop;
     int *forks;
-    pthread_mutex_t* fork_locks;
+    pthread_mutex_t *fork_locks;
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
@@ -32,6 +32,7 @@ typedef struct s_philo
     unsigned long int last_meal_time;
     int meals;
     int has_forks;
+    int mark_stop;
     pthread_t thread_id;
     t_info *info;
 } t_philo;
@@ -71,4 +72,5 @@ void *start(void *args);
 void init_mutex(t_info *args);
 
 int check_error(int ac, char **av);
+int can_run(t_philo *philo);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/22 15:55:01 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/24 21:20:16 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int must_stop(t_philo *philo)
     int must_stop;
 
     must_stop = 0;
-    pthread_mutex_lock(&philo->info->print_lock);
+    pthread_mutex_lock(&philo->info->stop_lock);
     must_stop = philo->info->must_stop;
-    pthread_mutex_unlock(&philo->info->print_lock);
+    pthread_mutex_unlock(&philo->info->stop_lock);
     return (must_stop);
 }

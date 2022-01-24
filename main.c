@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/23 22:44:01 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:46:12 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void eating(t_philo *philo)
 {
 	if (must_stop(philo))
+	{
 		return;
-
-	take_fork(philo);
-
+	}
+	if (philo->info->max_times_to_eat == philo->meals)
+		return;
 	if (is_still_alive(philo) == 0)
 	{
 		set_is_dead(philo, 1);
@@ -28,17 +29,12 @@ void eating(t_philo *philo)
 		pthread_mutex_unlock(&philo->info->print_lock);
 		return;
 	}
-
+	take_fork(philo);
 	philo->last_meal_time = get_time();
 	pthread_mutex_lock(&philo->info->print_lock);
 	log_eating(philo);
 	pthread_mutex_unlock(&philo->info->print_lock);
 	usleep(philo->info->time_to_eat * 1000);
-
-	pthread_mutex_lock(&philo->info->print_lock);
-	// log_done_eating(philo);
-	pthread_mutex_unlock(&philo->info->print_lock);
-
 	drop_fork(philo);
 	philo->meals = philo->meals + 1;
 }
@@ -74,22 +70,35 @@ void sleeping(t_philo *philo)
 			if (is_still_alive(philo) == 0)
 				return;
 		}
-		// usleep(philo->info->time_to_sleep * 920);
-		pthread_mutex_lock(&philo->info->print_lock);
-		// log_done_sleeping(philo);
-		pthread_mutex_unlock(&philo->info->print_lock);
 	}
+
 	return;
+}
+
+int can_run(t_philo *philo)
+{
+	if (is_dead(philo))
+		return (0);
+	if (must_stop(philo))
+		return (0);
+	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat != -1))
+		return (0);
+	return (1);
 }
 
 void *start(void *args)
 {
 	t_philo *philo;
+
 	philo = (t_philo *)args;
-	while (!is_dead(philo) && !must_stop(philo) && (philo->info->max_times_to_eat > philo->meals || philo->info->max_times_to_eat == -1))
+	if (philo->info->nb_of_philo == 1)
+	{
+		log_is_dead(philo);
+		return NULL;
+	}
+	while (can_run(philo))
 	{
 		eating(philo);
-
 		sleeping(philo);
 		thinking(philo);
 		if (is_dead(philo) == 1)
@@ -99,6 +108,8 @@ void *start(void *args)
 			pthread_mutex_unlock(&philo->info->stop_lock);
 			break;
 		}
+		if (philo->info->max_times_to_eat == philo->meals)
+			break;
 	}
 }
 

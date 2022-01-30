@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/24 22:40:01 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/30 23:07:42 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ void take_fork(t_philo *philo)
 	int id;
 	int left_id;
 
+	if (philo->info->nb_of_philo <= 1)
+	{
+		set_is_dead(philo, 1);
+		log_is_dead(philo);
+		return;
+	}
 	id = philo->id - 1;
 	left_id = philo->id;
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
-	if (can_run(philo))
-	{
-		pthread_mutex_lock(&philo->info->fork_locks[id]);
-		pthread_mutex_lock(&philo->info->fork_locks[left_id]);
-		if (!must_stop(philo) && is_still_alive(philo))
-		{
-			pthread_mutex_lock(&philo->info->print_lock);
-			log_taking_fork(philo, id + 1);
-			log_taking_fork(philo, left_id + 1);
-			pthread_mutex_unlock(&philo->info->print_lock);
-			philo->has_forks = 1;
-		}
-	}
+	pthread_mutex_lock(&philo->info->take_fork_locks[philo->id -1]);
+	pthread_mutex_lock(&philo->info->fork_locks[id]);
+	pthread_mutex_lock(&philo->info->fork_locks[left_id]);
+	pthread_mutex_unlock(&philo->info->take_fork_locks[philo->id -1]);
+	log_taking_fork(philo, id + 1);
+	log_taking_fork(philo, left_id + 1);
+	philo->has_forks = 1;
 }
 
 void drop_fork(t_philo *philo)
@@ -64,6 +64,8 @@ void drop_fork(t_philo *philo)
 	left_id = philo->id;
 	if (philo->id == philo->info->nb_of_philo)
 		left_id = 0;
+	pthread_mutex_lock(&philo->info->take_fork_locks[philo->id -1]);
 	pthread_mutex_unlock(&philo->info->fork_locks[id]);
 	pthread_mutex_unlock(&philo->info->fork_locks[left_id]);
+	pthread_mutex_unlock(&philo->info->take_fork_locks[philo->id -1]);
 }

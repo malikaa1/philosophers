@@ -61,9 +61,28 @@ void init_mutex(t_info *args)
     pthread_mutex_init(&args->dead_lock, NULL);
     pthread_mutex_init(&args->print_lock, NULL);
     pthread_mutex_init(&args->stop_lock, NULL);
-    // pthread_mutex_init(&args->stop_lock, NULL);
+    while (i < args->nb_of_philo)
+    {
+        pthread_mutex_init(&args->take_fork_locks[i++], NULL);
+    }
 }
 
+int nb_meals_philos(t_philo **philos)
+{
+    int i;
+    int  nb_of_philo;
+    int sum_meals;
+
+    sum_meals = 0;
+    i = 0;
+    nb_of_philo = philos[i]->info->nb_of_philo;
+    while (i < nb_of_philo)
+    {
+        sum_meals = sum_meals + philos[i]->meals;
+        i++;
+    }
+    return (sum_meals);
+}
 void *check_end(void *args)
 {
     t_philo **philos;
@@ -77,9 +96,8 @@ void *check_end(void *args)
     {
         while (philos[i] != NULL)
         {
-            if (is_dead(philos[i]) == 1)
+            if (is_dead(philos[i]) == 1 || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
             {
-                // printf("philo %d is deaaaaaaaaaaaaaaaaaaaaaaaaad\n", philos[i]->id);
                 alive = 0;
                 mark_as_stop(philos);
                 return NULL;
@@ -92,27 +110,14 @@ void *check_end(void *args)
 
 void mark_as_stop(t_philo **philos)
 {
-    // printf("mark as stop\n");
     int i;
+    int nb;
+    
     i = 0;
-
+    nb  = philos[i]->info->nb_of_philo;
     if (philos == NULL || philos[0] == NULL)
         return;
-    pthread_mutex_lock(&philos[1]->info->stop_lock);
-    // while (philos[i] != NULL)
-    // {
-    // 	philos[i]->mark_stop= 1;
-    // 	i++;
-    // }
-    philos[0]->info->must_stop = 1;
-
-    int nb = philos[0]->info->nb_of_philo;
-
-    while (i < nb)
-    {
-        pthread_mutex_unlock(&philos[i]->info->fork_locks[i]);
-        i++;
-    }
-    pthread_mutex_unlock(&philos[1]->info->stop_lock);
-    // printf("mark as stop done\n");
+    pthread_mutex_lock(&philos[i]->info->stop_lock);
+    philos[i]->info->must_stop = 1;
+    pthread_mutex_unlock(&philos[i]->info->stop_lock);
 }

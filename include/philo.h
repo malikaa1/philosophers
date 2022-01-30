@@ -21,6 +21,7 @@ typedef struct s_info
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
+    pthread_mutex_t *take_fork_locks;
 
 } t_info;
 
@@ -38,6 +39,7 @@ typedef struct s_philo
 } t_philo;
 
 int ft_atoi(const char *str);
+int check_args(char *s);
 int ft_isdigit(char c);
 long int get_time();
 long int get_d_time();

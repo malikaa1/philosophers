@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/24 21:20:16 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/30 22:59:33 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,41 @@ int check_error(int ac, char **av)
 	k = ac - 1;
 	while (k > 0)
 	{
-		i = 0;
-		while (av[k][i] != '\0')
-		{
-			if (ft_isdigit(av[k][i]) == 0)
-			{
-				printf("args must be int\n");
-				return (0);
-			}
-			i++;
-		}
+		if (check_args(av[k]) == 0)
+			return (0);
 		k--;
+	}
+	if (ft_atoi(av[1]) == 0)
+	{
+		printf("nb of philo should be greater than 0\n");
+		return (0);
 	}
 	return (1);
 }
 
+int check_args(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (ft_isdigit(s[i]) == 0)
+		{
+			printf("args must be int\n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 int must_stop(t_philo *philo)
 {
-    int must_stop;
+	int must_stop;
 
-    must_stop = 0;
-    pthread_mutex_lock(&philo->info->stop_lock);
-    must_stop = philo->info->must_stop;
-    pthread_mutex_unlock(&philo->info->stop_lock);
-    return (must_stop);
+	must_stop = 0;
+	pthread_mutex_lock(&philo->info->stop_lock);
+	must_stop = philo->info->must_stop;
+	pthread_mutex_unlock(&philo->info->stop_lock);
+	return (must_stop);
 }

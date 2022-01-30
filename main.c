@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/24 22:46:12 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/30 23:05:39 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 void eating(t_philo *philo)
 {
-	if (must_stop(philo))
-	{
-		return;
-	}
-	if (philo->info->max_times_to_eat == philo->meals)
-		return;
-	if (is_still_alive(philo) == 0)
+	if (can_run(philo) == 0)
 	{
 		set_is_dead(philo, 1);
 		philo->info->must_stop = 1;
@@ -30,20 +24,21 @@ void eating(t_philo *philo)
 		return;
 	}
 	take_fork(philo);
-	philo->last_meal_time = get_time();
-	pthread_mutex_lock(&philo->info->print_lock);
-	log_eating(philo);
-	pthread_mutex_unlock(&philo->info->print_lock);
-	usleep(philo->info->time_to_eat * 1000);
-	drop_fork(philo);
-	philo->meals = philo->meals + 1;
+	if (can_run(philo))
+	{
+		pthread_mutex_lock(&philo->info->print_lock);
+		philo->last_meal_time = get_time();
+		log_eating(philo);
+		pthread_mutex_unlock(&philo->info->print_lock);
+		usleep(philo->info->time_to_eat * 1000);
+		drop_fork(philo);
+		philo->meals = philo->meals + 1;
+	}
 }
 
 void thinking(t_philo *philo)
 {
-	if (must_stop(philo))
-		return;
-	if (is_still_alive(philo) == 1)
+	if (can_run(philo) == 1)
 	{
 		pthread_mutex_lock(&philo->info->print_lock);
 		log_thinking(philo);
@@ -54,25 +49,18 @@ void thinking(t_philo *philo)
 void sleeping(t_philo *philo)
 {
 	unsigned long int sleep_time;
+	int last_meal;
 
 	if (must_stop(philo))
 		return;
 	sleep_time = 0;
-	if (is_still_alive(philo) == 1)
+	if (can_run(philo) == 1)
 	{
 		pthread_mutex_lock(&philo->info->print_lock);
 		log_sleeping(philo);
 		pthread_mutex_unlock(&philo->info->print_lock);
-		while (is_still_alive(philo) == 1 && sleep_time != (philo->info->time_to_sleep))
-		{
-			usleep(1000 * 10);
-			sleep_time += 10;
-			if (is_still_alive(philo) == 0)
-				return;
-		}
+		usleep(philo->info->time_to_sleep * (1000));
 	}
-
-	return;
 }
 
 int can_run(t_philo *philo)
@@ -91,11 +79,6 @@ void *start(void *args)
 	t_philo *philo;
 
 	philo = (t_philo *)args;
-	if (philo->info->nb_of_philo == 1)
-	{
-		log_is_dead(philo);
-		return NULL;
-	}
 	while (can_run(philo))
 	{
 		eating(philo);
@@ -124,8 +107,8 @@ int main(int argc, char **argv)
 	init_mutex(args);
 	philos = create_philos(args);
 	create_threads(args, philos);
-	ft_free(args);
-	ft_free(args->forks);
-	ft_free(philos);
+	//	ft_free(args);
+	//	ft_free(args->forks);
+	//	ft_free(philos);
 	return (0);
 }

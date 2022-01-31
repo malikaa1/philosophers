@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/30 23:05:39 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/31 22:35:07 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void eating(t_philo *philo)
 {
-	if (can_run(philo) == 0)
+	if (!is_still_alive(philo))
 	{
+		pthread_mutex_lock(&philo->info->print_lock);
+		pthread_mutex_lock(&philo->info->stop_lock);
 		set_is_dead(philo, 1);
 		philo->info->must_stop = 1;
-		pthread_mutex_lock(&philo->info->print_lock);
 		log_is_dead(philo);
+		pthread_mutex_unlock(&philo->info->stop_lock);
 		pthread_mutex_unlock(&philo->info->print_lock);
 		return;
 	}
@@ -40,27 +42,29 @@ void thinking(t_philo *philo)
 {
 	if (can_run(philo) == 1)
 	{
-		pthread_mutex_lock(&philo->info->print_lock);
-		log_thinking(philo);
-		pthread_mutex_unlock(&philo->info->print_lock);
+		if (is_still_alive(philo))
+		{
+			pthread_mutex_lock(&philo->info->print_lock);
+			log_thinking(philo);
+			pthread_mutex_unlock(&philo->info->print_lock);
+		}
 	}
 }
 
 void sleeping(t_philo *philo)
 {
-	unsigned long int sleep_time;
-	int last_meal;
-
 	if (must_stop(philo))
 		return;
-	sleep_time = 0;
-	if (can_run(philo) == 1)
+	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
 		pthread_mutex_lock(&philo->info->print_lock);
 		log_sleeping(philo);
 		pthread_mutex_unlock(&philo->info->print_lock);
 		usleep(philo->info->time_to_sleep * (1000));
 	}
+	pthread_mutex_lock(&philo->info->print_lock);
+	log_done_sleeping(philo);
+	pthread_mutex_unlock(&philo->info->print_lock);
 }
 
 int can_run(t_philo *philo)

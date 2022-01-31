@@ -70,7 +70,7 @@ void init_mutex(t_info *args)
 int nb_meals_philos(t_philo **philos)
 {
     int i;
-    int  nb_of_philo;
+    int nb_of_philo;
     int sum_meals;
 
     sum_meals = 0;
@@ -96,7 +96,8 @@ void *check_end(void *args)
     {
         while (philos[i] != NULL)
         {
-            if (is_dead(philos[i]) == 1 || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            if (is_dead(philos[i]) == 1 
+            || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
             {
                 alive = 0;
                 mark_as_stop(philos);
@@ -112,9 +113,9 @@ void mark_as_stop(t_philo **philos)
 {
     int i;
     int nb;
-    
+
     i = 0;
-    nb  = philos[i]->info->nb_of_philo;
+    nb = philos[i]->info->nb_of_philo;
     if (philos == NULL || philos[0] == NULL)
         return;
     pthread_mutex_lock(&philos[i]->info->stop_lock);

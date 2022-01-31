@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/30 23:07:42 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/01/31 22:35:44 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void drop_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->info->fork_locks[id]);
 	pthread_mutex_unlock(&philo->info->fork_locks[left_id]);
 	pthread_mutex_unlock(&philo->info->take_fork_locks[philo->id -1]);
+	log_drop_fork(philo);
 }

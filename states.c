@@ -37,7 +37,7 @@ int is_still_alive(t_philo *philo)
 
     current_time = get_time();
     time = current_time - philo->last_meal_time;
-    if (time > philo->info->time_to_die)
+    if (time > (philo->info->time_to_die + 10))
         return (0);
     return (1);
 }

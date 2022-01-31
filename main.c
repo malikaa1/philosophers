@@ -14,57 +14,52 @@
 
 void eating(t_philo *philo)
 {
+
 	if (!is_still_alive(philo))
 	{
-		pthread_mutex_lock(&philo->info->print_lock);
 		pthread_mutex_lock(&philo->info->stop_lock);
 		set_is_dead(philo, 1);
 		philo->info->must_stop = 1;
 		log_is_dead(philo);
 		pthread_mutex_unlock(&philo->info->stop_lock);
-		pthread_mutex_unlock(&philo->info->print_lock);
 		return;
 	}
 	take_fork(philo);
 	if (can_run(philo))
 	{
-		pthread_mutex_lock(&philo->info->print_lock);
 		philo->last_meal_time = get_time();
 		log_eating(philo);
-		pthread_mutex_unlock(&philo->info->print_lock);
-		usleep(philo->info->time_to_eat * 1000);
+		long int start = get_d_time(philo);
+		usleep(philo->info->time_to_eat * (1000));
 		drop_fork(philo);
+		long int end = get_d_time(philo);
+		log_done_eating(philo, end - start);
 		philo->meals = philo->meals + 1;
 	}
 }
 
 void thinking(t_philo *philo)
 {
-	if (can_run(philo) == 1)
+	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
-		if (is_still_alive(philo))
-		{
-			pthread_mutex_lock(&philo->info->print_lock);
-			log_thinking(philo);
-			pthread_mutex_unlock(&philo->info->print_lock);
-		}
+		log_thinking(philo);
 	}
 }
 
 void sleeping(t_philo *philo)
 {
+	long int start;
+	long int end;
+	start = get_d_time(philo);
 	if (must_stop(philo))
 		return;
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
-		pthread_mutex_lock(&philo->info->print_lock);
 		log_sleeping(philo);
-		pthread_mutex_unlock(&philo->info->print_lock);
 		usleep(philo->info->time_to_sleep * (1000));
 	}
-	pthread_mutex_lock(&philo->info->print_lock);
-	log_done_sleeping(philo);
-	pthread_mutex_unlock(&philo->info->print_lock);
+	end = get_d_time(philo);
+	log_done_sleeping(philo, end - start);
 }
 
 int can_run(t_philo *philo)

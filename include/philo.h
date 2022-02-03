@@ -8,6 +8,12 @@
 #include <pthread.h>
 #include <limits.h>
 
+typedef struct s_fork
+{
+    int id;
+    int available;
+} t_fork;
+
 typedef struct s_info
 {
     int nb_of_philo;
@@ -16,12 +22,10 @@ typedef struct s_info
     int time_to_sleep;
     int max_times_to_eat;
     int must_stop;
-    int *forks;
     pthread_mutex_t *fork_locks;
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
-    pthread_mutex_t *take_fork_locks;
 
 } t_info;
 
@@ -43,6 +47,7 @@ int check_args(char *s);
 int ft_isdigit(char c);
 long int get_time();
 long int get_d_time(t_philo* philo);
+long int get_time_us();
 void print_args(t_info philo);
 t_info *init_arg(int argc, char **argv);
 void print_philo(t_philo *philo);

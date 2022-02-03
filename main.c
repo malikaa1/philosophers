@@ -12,6 +12,30 @@
 
 #include "philo.h"
 
+void _sleep(int time_ms)
+{
+	long int s_time = get_time();
+	// struct timespec remainig, request = {0, time_ms * 1000 * 1000};
+
+	// nanosleep(&request, &remainig);
+
+	int elapsed = 0;
+
+	// while (elapsed <= time_ms)
+	// {
+	// 	long int start = get_time();
+	// 	usleep(1000);
+	// 	long int end = get_time();
+	// 	elapsed+= (end - start);
+	// }
+
+	usleep(time_ms * 1000);
+
+	long int e_time = get_time();
+
+	printf("---------------------------------------------------------> %ld\n", e_time - s_time);
+}
+
 void eating(t_philo *philo)
 {
 
@@ -22,15 +46,15 @@ void eating(t_philo *philo)
 		philo->info->must_stop = 1;
 		log_is_dead(philo);
 		pthread_mutex_unlock(&philo->info->stop_lock);
+		exit(0);
 		return;
 	}
-	take_fork(philo);
 	if (can_run(philo))
 	{
 		philo->last_meal_time = get_time();
 		log_eating(philo);
 		long int start = get_d_time(philo);
-		usleep(philo->info->time_to_eat * (1000));
+		_sleep(philo->info->time_to_eat);
 		drop_fork(philo);
 		long int end = get_d_time(philo);
 		log_done_eating(philo, end - start);
@@ -56,7 +80,7 @@ void sleeping(t_philo *philo)
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
 		log_sleeping(philo);
-		usleep(philo->info->time_to_sleep * (1000));
+		_sleep(philo->info->time_to_sleep);
 	}
 	end = get_d_time(philo);
 	log_done_sleeping(philo, end - start);
@@ -78,8 +102,12 @@ void *start(void *args)
 	t_philo *philo;
 
 	philo = (t_philo *)args;
+	if (philo->id % 2 == 0)
+		usleep(10 * 1000);
+
 	while (can_run(philo))
 	{
+		take_fork(philo);
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);

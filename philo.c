@@ -61,10 +61,6 @@ void init_mutex(t_info *args)
     pthread_mutex_init(&args->dead_lock, NULL);
     pthread_mutex_init(&args->print_lock, NULL);
     pthread_mutex_init(&args->stop_lock, NULL);
-    while (i < args->nb_of_philo)
-    {
-        pthread_mutex_init(&args->take_fork_locks[i++], NULL);
-    }
 }
 
 int nb_meals_philos(t_philo **philos)
@@ -96,8 +92,7 @@ void *check_end(void *args)
     {
         while (philos[i] != NULL)
         {
-            if (is_dead(philos[i]) == 1 
-            || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            if (is_dead(philos[i]) == 1 || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
             {
                 alive = 0;
                 mark_as_stop(philos);
@@ -105,6 +100,7 @@ void *check_end(void *args)
             }
             i++;
         }
+        usleep(1000 * 5);
         i = 0;
     }
 }

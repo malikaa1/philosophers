@@ -95,7 +95,10 @@ void log_thinking(t_philo *philo)
 
 void log_is_dead(t_philo *philo)
 {
+    printf("\033[0;31m"); 
+    long int since = get_d_time(philo) - (philo->last_meal_time - philo->start_time) - philo->info->time_to_eat - philo->info->time_to_sleep;
     pthread_mutex_lock(&philo->info->print_lock);
-    printf("%8ld : Philo %d is dead \n", get_d_time(philo), philo->id);
+    printf("%8ld : Philo %d is dead since %ld\n", get_d_time(philo), philo->id, since);
     pthread_mutex_unlock(&philo->info->print_lock);
+    printf("\033[0m"); 
 }

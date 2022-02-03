@@ -1,0 +1,5 @@
+./philo 1 800 200 200 ko
+./philo 5 800 200 200 ok 
+./philo 5 800 200 200 7 ok 
+./philo 4 410 200 200 ok 
+./philo 4 310 200 100 ko

@@ -27,9 +27,7 @@ t_info *init_arg(int argc, char **argv)
 		info->max_times_to_eat = ft_atoi(argv[5]);
 	else
 		info->max_times_to_eat = -1;
-	info->forks = init_forks(info);
 	info->fork_locks = ft_malloc(info->nb_of_philo * sizeof(pthread_mutex_t));
-	info->take_fork_locks = ft_malloc(info->nb_of_philo * sizeof(pthread_mutex_t));
 	info->must_stop = 0;
 	return (info);
 }

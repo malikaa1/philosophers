@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 20:07:53 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:01:15 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void take_fork(t_philo *philo)
 		pthread_mutex_lock(&philo->info->fork_locks[left_id]);
 		if (can_run(philo) == 1 && is_still_alive(philo))
 			log_taking_fork(philo);
-		philo->has_forks = 1;
 	}
 }
 

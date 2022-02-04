@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:49:18 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 20:05:19 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 21:40:38 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void log_thinking(t_philo *philo)
 
 void log_is_dead(t_philo *philo)
 {
+    long int since;
+
     printf("\033[0;31m");
-    long int since = get_d_time(philo) - (philo->last_meal_time - philo->start_time) - philo->info->time_to_eat - philo->info->time_to_sleep;
+    since = get_d_time(philo) - (philo->last_meal_time - philo->start_time ) - philo->info->time_to_die;
     pthread_mutex_lock(&philo->info->print_lock);
     printf("%8ld : Philo %d is dead since %ld\n", get_d_time(philo), philo->id, since);
     pthread_mutex_unlock(&philo->info->print_lock);

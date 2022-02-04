@@ -28,11 +28,8 @@ typedef struct s_philo
 {
     int id;
     unsigned long int start_time;
-    int is_dead;
     unsigned long int last_meal_time;
     int meals;
-    int has_forks;
-    int mark_stop;
     pthread_t thread_id;
     t_info *info;
 } t_philo;
@@ -58,9 +55,9 @@ void log_is_dead(t_philo *philo);
 void _sleep(int time_ms);
 void take_fork(t_philo *philo);
 void drop_fork(t_philo *philo);
-void set_is_dead(t_philo *philo, int is_dead);
+
 void *check_end(void *args);
-void mark_as_stop(t_philo **philos);
+void mark_as_stop(t_info *info);
 int is_dead(t_philo *philo);
 int must_stop(t_philo *philo);
 int *init_forks(t_info *info);

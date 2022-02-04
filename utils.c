@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 16:30:46 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 21:45:05 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int must_stop(t_philo *philo)
 
 int can_run(t_philo *philo)
 {
-	if (is_dead(philo))
-		return (0);
 	if (must_stop(philo))
 		return (0);
 	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat != -1))
@@ -46,16 +44,14 @@ int can_run(t_philo *philo)
 	return (1);
 }
 
-void mark_as_stop(t_philo **philos)
+void mark_as_stop(t_info *info)
 {
     int i;
     int nb;
 
     i = 0;
-    nb = philos[i]->info->nb_of_philo;
-    if (philos == NULL || philos[0] == NULL)
-        return;
-    pthread_mutex_lock(&philos[i]->info->stop_lock);
-    philos[i]->info->must_stop = 1;
-    pthread_mutex_unlock(&philos[i]->info->stop_lock);
+    nb = info->nb_of_philo;
+    pthread_mutex_lock(&info->stop_lock);
+    info->must_stop = 1;
+    pthread_mutex_unlock(&info->stop_lock);
 }

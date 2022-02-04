@@ -29,6 +29,7 @@ typedef struct s_philo
     int id;
     unsigned long int start_time;
     unsigned long int last_meal_time;
+    int is_dead;
     int meals;
     pthread_t thread_id;
     t_info *info;

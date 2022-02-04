@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 22:06:56 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:54:17 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void sleeping(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
+		//printf("iiii===========> %d\n", philo->info->must_stop);
 		log_sleeping(philo);
 		_sleep(philo->info->time_to_sleep);
 	}

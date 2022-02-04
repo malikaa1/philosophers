@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
+/*   Updated: 2022/02/04 18:55:49 by mrahmani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 t_philo **create_philos(t_info *info)
@@ -53,6 +65,7 @@ void create_threads(t_info *info, t_philo **philos)
 void init_mutex(t_info *args)
 {
     int i;
+
     i = 0;
     while (i < args->nb_of_philo)
     {
@@ -79,6 +92,7 @@ int nb_meals_philos(t_philo **philos)
     }
     return (sum_meals);
 }
+
 void *check_end(void *args)
 {
     t_philo **philos;
@@ -92,29 +106,26 @@ void *check_end(void *args)
     {
         while (philos[i] != NULL)
         {
-            if (is_dead(philos[i]) == 1 || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            if (is_still_alive(philos[i]) == 0)
             {
                 alive = 0;
+                printf("deaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad&\n");
+                log_is_dead(philos[i]);
+                set_is_dead(philos[i], 1);
                 mark_as_stop(philos);
+                unlock_all_forks(philos[i]);
+                return NULL;
+            }
+            if (nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            {
+                printf("max meals reacheeeeeeeed\n");
+                mark_as_stop(philos);
+                unlock_all_forks(philos[i]);
                 return NULL;
             }
             i++;
         }
-        usleep(1000 * 5);
+        usleep((philos[0]->info->time_to_die / 2) * 1000);
         i = 0;
     }
-}
-
-void mark_as_stop(t_philo **philos)
-{
-    int i;
-    int nb;
-
-    i = 0;
-    nb = philos[i]->info->nb_of_philo;
-    if (philos == NULL || philos[0] == NULL)
-        return;
-    pthread_mutex_lock(&philos[i]->info->stop_lock);
-    philos[i]->info->must_stop = 1;
-    pthread_mutex_unlock(&philos[i]->info->stop_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/30 22:59:33 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:30:46 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,79 +19,11 @@ int ft_isdigit(char c)
 	return (0);
 }
 
-int ft_atoi(const char *str)
+void _sleep(int time_ms)
 {
-	unsigned int result;
-	int sign;
-
-	sign = 1;
-	result = 0;
-
-	while (*str == '\f' || *str == '\t' || *str == '\v' || *str == '\r' || *str == '\n' || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = sign * -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-	{
-		result = 10 * result + (*str - 48);
-		str++;
-		if (result > INT_MAX)
-			break;
-	}
-	if ((result == (unsigned int)INT_MAX + 1 && sign == -1) || result <= INT_MAX)
-		return (sign * result);
-	if (sign == 1)
-		return (-1);
-	else
-		return (0);
+	usleep(time_ms * 1000);
 }
 
-int check_error(int ac, char **av)
-{
-	int i;
-	int k;
-
-	i = 0;
-	if (ac != 5 && ac != 6)
-	{
-		printf("Usage : ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [max_meals]\n");
-		return (0);
-	}
-	k = ac - 1;
-	while (k > 0)
-	{
-		if (check_args(av[k]) == 0)
-			return (0);
-		k--;
-	}
-	if (ft_atoi(av[1]) == 0)
-	{
-		printf("nb of philo should be greater than 0\n");
-		return (0);
-	}
-	return (1);
-}
-
-int check_args(char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (ft_isdigit(s[i]) == 0)
-		{
-			printf("args must be int\n");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
 int must_stop(t_philo *philo)
 {
 	int must_stop;
@@ -101,4 +33,29 @@ int must_stop(t_philo *philo)
 	must_stop = philo->info->must_stop;
 	pthread_mutex_unlock(&philo->info->stop_lock);
 	return (must_stop);
+}
+
+int can_run(t_philo *philo)
+{
+	if (is_dead(philo))
+		return (0);
+	if (must_stop(philo))
+		return (0);
+	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat != -1))
+		return (0);
+	return (1);
+}
+
+void mark_as_stop(t_philo **philos)
+{
+    int i;
+    int nb;
+
+    i = 0;
+    nb = philos[i]->info->nb_of_philo;
+    if (philos == NULL || philos[0] == NULL)
+        return;
+    pthread_mutex_lock(&philos[i]->info->stop_lock);
+    philos[i]->info->must_stop = 1;
+    pthread_mutex_unlock(&philos[i]->info->stop_lock);
 }

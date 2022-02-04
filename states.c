@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:56:43 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/01/31 20:54:28 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 20:13:04 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,19 @@ int is_still_alive(t_philo *philo)
 
     current_time = get_time();
     time = current_time - philo->last_meal_time;
-    if (time > (philo->info->time_to_die + 5))
+    if (time > (philo->info->time_to_die))
         return (0);
     return (1);
+}
+
+void unlock_all_forks(t_philo *philo)
+{
+    int i;
+    
+    i = 0;
+    while (i < philo->info->nb_of_philo)
+    {
+        pthread_mutex_unlock(&philo->info->fork_locks[i]);
+        i++;
+    }
 }

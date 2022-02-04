@@ -79,6 +79,17 @@ int nb_meals_philos(t_philo **philos)
     }
     return (sum_meals);
 }
+
+void unlock_all_forks(t_philo *philo)
+{
+    int i = 0;
+    while (i < philo->info->nb_of_philo)
+    {
+        pthread_mutex_unlock(&philo->info->fork_locks[i]);
+        i++;
+    }
+}
+
 void *check_end(void *args)
 {
     t_philo **philos;
@@ -92,15 +103,26 @@ void *check_end(void *args)
     {
         while (philos[i] != NULL)
         {
-            if (is_dead(philos[i]) == 1 || nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            if (is_still_alive(philos[i]) == 0)
             {
                 alive = 0;
+                printf("deaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad&\n");
+                log_is_dead(philos[i]);
+                set_is_dead(philos[i], 1);
                 mark_as_stop(philos);
+                unlock_all_forks(philos[i]);
+                return NULL;
+            }
+            if (nb_meals_philos(philos) == (philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat))
+            {
+                printf("max meals reacheeeeeeeed\n");
+                mark_as_stop(philos);
+                unlock_all_forks(philos[i]);
                 return NULL;
             }
             i++;
         }
-        usleep(1000 * 5);
+        usleep((philos[0]->info->time_to_die / 2) * 1000);
         i = 0;
     }
 }

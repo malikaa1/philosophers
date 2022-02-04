@@ -28,8 +28,12 @@ void take_fork(t_philo *philo)
 		left_id = 0;
 	printf("%8ld : Philo %d is trying to take a forks #%d #%d\n", get_d_time(philo), philo->id, id + 1, left_id + 1);
 	pthread_mutex_lock(&philo->info->fork_locks[id]);
+	if (philo->info->must_stop)
+		return;
 	log_taking_fork(philo, id + 1);
 	pthread_mutex_lock(&philo->info->fork_locks[left_id]);
+	if (philo->info->must_stop)
+		return;
 	log_taking_fork(philo, left_id + 1);
 	philo->has_forks = 1;
 }

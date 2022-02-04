@@ -39,16 +39,17 @@ void _sleep(int time_ms)
 void eating(t_philo *philo)
 {
 
-	if (!is_still_alive(philo))
-	{
-		pthread_mutex_lock(&philo->info->stop_lock);
-		set_is_dead(philo, 1);
-		philo->info->must_stop = 1;
-		log_is_dead(philo);
-		pthread_mutex_unlock(&philo->info->stop_lock);
-		exit(0);
-		return;
-	}
+	// if (!is_still_alive(philo))
+	// {
+	// 	if(philo->info->must_stop)
+	// 		return;
+	// 	pthread_mutex_lock(&philo->info->stop_lock);
+	// 	set_is_dead(philo, 1);
+	// 	philo->info->must_stop = 1;
+	// 	log_is_dead(philo);
+	// 	pthread_mutex_unlock(&philo->info->stop_lock);
+	// 	return;
+	// }
 	if (can_run(philo))
 	{
 		philo->last_meal_time = get_time();
@@ -111,13 +112,13 @@ void *start(void *args)
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
-		if (is_dead(philo) == 1)
-		{
-			pthread_mutex_lock(&philo->info->stop_lock);
-			philo->info->must_stop = 1;
-			pthread_mutex_unlock(&philo->info->stop_lock);
-			break;
-		}
+		// if (is_dead(philo) == 1)
+		// {
+		// 	pthread_mutex_lock(&philo->info->stop_lock);
+		// 	philo->info->must_stop = 1;
+		// 	pthread_mutex_unlock(&philo->info->stop_lock);
+		// 	break;
+		// }
 		if (philo->info->max_times_to_eat == philo->meals)
 			break;
 	}

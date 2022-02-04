@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 22:55:55 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 23:17:01 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int must_stop(t_philo *philo)
 
 int can_run(t_philo *philo)
 {
+	if(philo->is_dead)
+		return (0);
 	if (must_stop(philo))
 		return (0);
 	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat != -1))

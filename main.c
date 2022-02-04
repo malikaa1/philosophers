@@ -6,12 +6,11 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 22:54:17 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 23:29:02 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 void eating(t_philo *philo)
 {
@@ -37,7 +36,7 @@ void sleeping(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
-		//printf("iiii===========> %d\n", philo->info->must_stop);
+		// printf("iiii===========> %d\n", philo->info->must_stop);
 		log_sleeping(philo);
 		_sleep(philo->info->time_to_sleep);
 	}
@@ -59,6 +58,18 @@ void *start(void *args)
 	}
 }
 
+void free_philos(t_philo **philo)
+{
+	t_philo** temp = philo;
+	int i = 0;
+	while (temp[i] != NULL)
+	{
+		ft_free(temp[i]);
+		i++;
+	}
+	ft_free(temp);
+}
+
 int main(int argc, char **argv)
 {
 	t_info *args;
@@ -70,8 +81,9 @@ int main(int argc, char **argv)
 	init_mutex(args);
 	philos = create_philos(args);
 	create_threads(args, philos);
-	//	ft_free(args);
-	//	ft_free(args->forks);
-	//	ft_free(philos);
+	// ft_free(args);
+	ft_free(args->fork_locks);
+	free_philos(philos);
+	ft_free(args);
 	return (0);
 }

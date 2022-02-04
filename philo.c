@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 22:55:41 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/04 23:31:11 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_philo **create_philos(t_info *info)
     int i;
 
     i = 0;
-    philos = ft_malloc(info->nb_of_philo * sizeof(t_philo *) + 1);
+    philos = ft_malloc(info->nb_of_philo + 1 * sizeof(t_philo *));
     if (philos == NULL)
         return (NULL);
     while (i < info->nb_of_philo)
@@ -32,6 +32,7 @@ t_philo **create_philos(t_info *info)
         philos[i]->info = info;
         philos[i]->meals = 0;
         philos[i]->last_meal_time = get_time();
+        philos[i]->is_dead = 0;
         i++;
     }
     philos[i] = NULL;
@@ -114,6 +115,7 @@ void *check_end(void *args)
                 return (NULL);
             if (is_still_alive(philos[i]) == 0)
             {
+                philos[i]->is_dead = 1;
                 log_is_dead(philos[i]);
                 mark_as_stop(philos[i]->info);
                 unlock_all_forks(philos[i]);

@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 20:53:25 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 21:15:21 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,12 @@ void *check_end(void *args)
                 return (NULL);
             if (is_still_alive(philos[i]) == 0)
             {
+                pthread_mutex_lock(&philos[i]->info->print_lock);
                 philos[i]->is_dead = 1;
-                log_is_dead(philos[i]);
                 mark_as_stop(philos[i]->info);
                 unlock_all_forks(philos[i]);
+                log_is_dead(philos[i]);
+                pthread_mutex_unlock(&philos[i]->info->print_lock);
                 return (NULL);
             }
             i++;

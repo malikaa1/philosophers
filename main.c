@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 23:35:41 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:41:42 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void *start(void *args)
 		sleeping(philo);
 		thinking(philo);
 	}
+	return (NULL);
 }
 
 void free_philos(t_philo **philo)

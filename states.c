@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:56:43 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 21:16:17 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:44:30 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int is_still_alive(t_philo *philo)
 {
-    unsigned long int current_time;
-    unsigned long int time;
+    long int current_time;
+    long int time;
 
     current_time = get_time();
     time = current_time - philo->last_meal_time;

@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:46:54 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 22:48:51 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:43:36 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ int is_valid(char *value)
 
 int check_error(int ac, char **av)
 {
-	int i;
 	int k;
 
-	i = 0;
 	if (ac != 5 && ac != 6)
 	{
 		printf("Usage : ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [max_meals]\n");

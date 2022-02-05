@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 15:13:12 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 22:12:39 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:43:08 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ int can_run(t_philo *philo)
 
 void mark_as_stop(t_info *info)
 {
-    int i;
-    int nb;
-
-    i = 0;
-    nb = info->nb_of_philo;
     pthread_mutex_lock(&info->stop_lock);
     info->must_stop = 1;
     pthread_mutex_unlock(&info->stop_lock);

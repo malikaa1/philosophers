@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 23:31:11 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 20:53:25 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_philo **create_philos(t_info *info)
     int i;
 
     i = 0;
-    philos = ft_malloc(info->nb_of_philo + 1 * sizeof(t_philo *));
+    philos = ft_malloc((info->nb_of_philo + 1) * sizeof(t_philo *));
     if (philos == NULL)
         return (NULL);
     while (i < info->nb_of_philo)
@@ -90,7 +90,7 @@ int nb_meals_philos(t_philo **philos, int meals, int index)
     }
     if (meals == sum_meals)
     {
-        printf("max meals reacheeeeeeeed\n");
+        printf("max meals reached\n");
         mark_as_stop(philos[index]->info);
         unlock_all_forks(philos[index]);
         return (1);

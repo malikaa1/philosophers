@@ -5,7 +5,7 @@
             "command": "make",
             "args": [],
             "options": {
-                "cwd": "/home/aamd/philosophers"
+                "cwd": "/home/user42/projects/philo/philosophers"
             },
             "problemMatcher": [
                 "$gcc"

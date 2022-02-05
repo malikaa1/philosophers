@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 21:15:21 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:30:55 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,39 +39,51 @@ t_philo **create_philos(t_info *info)
     return (philos);
 }
 
-void create_threads(t_info *info, t_philo **philos)
+int create_threads(t_info *info, t_philo **philos)
 {
     int nb_philo;
     pthread_t id;
 
     nb_philo = info->nb_of_philo;
-    pthread_create(&id, NULL, &check_end, philos);
+    if (pthread_create(&id, NULL, &check_end, philos) != 0)
+        return (-1);
     while (nb_philo)
     {
         nb_philo--;
-        pthread_create(&philos[nb_philo]->thread_id, NULL, &start, philos[nb_philo]);
+        if (pthread_create(&philos[nb_philo]->thread_id, NULL, &start, philos[nb_philo]) != 0)
+            return (-1);
     }
     nb_philo = info->nb_of_philo;
     while (nb_philo)
     {
         nb_philo--;
-        pthread_join(philos[nb_philo]->thread_id, NULL);
+        if (pthread_join(philos[nb_philo]->thread_id, NULL) != 0)
+            return (-1);
     }
-    pthread_join(id, NULL);
+    if (pthread_join(id, NULL) != 0)
+        return (-1);
+
+    return (1);
 }
 
-void init_mutex(t_info *args)
+int init_mutex(t_info *args)
 {
     int i;
 
     i = 0;
     while (i < args->nb_of_philo)
     {
-        pthread_mutex_init(&args->fork_locks[i++], NULL);
+        if (pthread_mutex_init(&args->fork_locks[i++], NULL) != 0)
+            return (-1);
     }
-    pthread_mutex_init(&args->dead_lock, NULL);
-    pthread_mutex_init(&args->print_lock, NULL);
-    pthread_mutex_init(&args->stop_lock, NULL);
+    if (pthread_mutex_init(&args->dead_lock, NULL) != 0)
+        return (-1);
+    if (pthread_mutex_init(&args->print_lock, NULL) != 0)
+        return (-1);
+    if (pthread_mutex_init(&args->stop_lock, NULL) != 0)
+        return (-1);
+
+    return (1);
 }
 
 int nb_meals_philos(t_philo **philos, int meals, int index)

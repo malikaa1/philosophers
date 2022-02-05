@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 23:29:02 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:35:41 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void *start(void *args)
 
 void free_philos(t_philo **philo)
 {
-	t_philo** temp = philo;
+	t_philo **temp = philo;
 	int i = 0;
 	while (temp[i] != NULL)
 	{
@@ -68,6 +68,19 @@ void free_philos(t_philo **philo)
 		i++;
 	}
 	ft_free(temp);
+}
+
+int exit_with_error(char *message)
+{
+	printf("%s\n", message);
+	return (1);
+}
+
+void free_all(t_info *args, t_philo **philos)
+{
+	ft_free(args->fork_locks);
+	free_philos(philos);
+	ft_free(args);
 }
 
 int main(int argc, char **argv)
@@ -78,12 +91,15 @@ int main(int argc, char **argv)
 	if (check_error(argc, argv) == 0)
 		return (1);
 	args = init_arg(argc, argv);
-	init_mutex(args);
+	if (args == NULL)
+		return (exit_with_error("unbale to creare args"));
+	if (init_mutex(args) == -1)
+		return (exit_with_error("unable to create mutexes"));
 	philos = create_philos(args);
-	create_threads(args, philos);
-	// ft_free(args);
-	ft_free(args->fork_locks);
-	free_philos(philos);
-	ft_free(args);
+	if (philos == NULL)
+		return (exit_with_error("unable to create philos"));
+	if (create_threads(args, philos) == -1)
+		return (exit_with_error("unable to create threads"));
+	free_all(args, philos);
 	return (0);
 }

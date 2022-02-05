@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "/home/user42/projects/philo/philosophers/philo",
             "args": [
-                "5",
+                "222222222222222222",
                 "800",
                 "200",
                 "200"

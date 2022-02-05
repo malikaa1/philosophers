@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:46:54 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 20:02:34 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 22:48:51 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_info *init_arg(int argc, char **argv)
 	else
 		info->max_times_to_eat = -1;
 	info->fork_locks = ft_malloc(info->nb_of_philo * sizeof(pthread_mutex_t));
+	if (info->fork_locks == NULL)
+		return (NULL);
 	info->must_stop = 0;
 	return (info);
 }
@@ -63,6 +65,16 @@ int ft_atoi(const char *str)
 		return (0);
 }
 
+int is_valid(char *value)
+{
+	if (ft_atoi(value) == -1)
+	{
+		printf("invalid %s value\n", value);
+		return (0);
+	}
+	return (1);
+}
+
 int check_error(int ac, char **av)
 {
 	int i;
@@ -77,13 +89,18 @@ int check_error(int ac, char **av)
 	k = ac - 1;
 	while (k > 0)
 	{
-		if (check_args(av[k]) == 0)
+		if (check_args(av[k]) == 0 || is_valid(av[k]) == 0)
 			return (0);
 		k--;
 	}
 	if (ft_atoi(av[1]) == 0)
 	{
 		printf("nb of philo should be greater than 0\n");
+		return (0);
+	}
+	if (ft_atoi(av[1]) >= 1000)
+	{
+		printf("nb of philo is too big\n");
 		return (0);
 	}
 	return (1);
@@ -96,7 +113,7 @@ int check_args(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (ft_isdigit(s[i]) == 0)
+		if (ft_isdigit(s[i]) == 0 )
 		{
 			printf("args must be int\n");
 			return (0);

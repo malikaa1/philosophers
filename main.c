@@ -36,8 +36,9 @@ void sleeping(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
-		// printf("iiii===========> %d\n", philo->info->must_stop);
+		pthread_mutex_lock(&philo->info->print_lock);
 		log_sleeping(philo);
+		pthread_mutex_unlock(&philo->info->print_lock);
 		_sleep(philo->info->time_to_sleep);
 	}
 }

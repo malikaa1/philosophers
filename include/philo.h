@@ -65,5 +65,5 @@ int check_must_stop(t_philo **philos);
 int check_error(int ac, char **av);
 int can_run(t_philo *philo);
 int is_still_alive(t_philo *philo);
-
+void log_is_dead(t_philo *philo);
 #endif

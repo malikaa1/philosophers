@@ -150,7 +150,7 @@ void	*check_end(void *args)
 			}
 			i++;
 		}
-		usleep((philos[0]->info->time_to_die / 2) * 1000);
+		usleep((10) * 1000);
 		i = 0;
 	}
 }

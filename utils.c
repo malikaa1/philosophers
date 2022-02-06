@@ -12,21 +12,21 @@
 
 #include "philo.h"
 
-int ft_isdigit(char c)
+int	ft_isdigit(char c)
 {
 	if (c <= '9' && c >= '0')
 		return (1);
 	return (0);
 }
 
-void _sleep(int time_ms)
+void	_sleep(int time_ms)
 {
 	usleep(time_ms * 1000);
 }
 
-int must_stop(t_philo *philo)
+int	must_stop(t_philo *philo)
 {
-	int must_stop;
+	int	must_stop;
 
 	must_stop = 0;
 	pthread_mutex_lock(&philo->info->stop_lock);
@@ -35,20 +35,26 @@ int must_stop(t_philo *philo)
 	return (must_stop);
 }
 
-int can_run(t_philo *philo)
+int	can_run(t_philo *philo)
 {
-	if(philo->is_dead)
+	pthread_mutex_lock(&philo->info->dead_lock);
+	if (philo->is_dead)
+	{
+		pthread_mutex_unlock(&philo->info->dead_lock);
 		return (0);
+	}
+	pthread_mutex_unlock(&philo->info->dead_lock);
 	if (must_stop(philo))
 		return (0);
-	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat != -1))
+	if ((philo->meals >= philo->info->max_times_to_eat && philo->info->max_times_to_eat !=
+			-1))
 		return (0);
 	return (1);
 }
 
-void mark_as_stop(t_info *info)
+void	mark_as_stop(t_info *info)
 {
-    pthread_mutex_lock(&info->stop_lock);
-    info->must_stop = 1;
-    pthread_mutex_unlock(&info->stop_lock);
+	pthread_mutex_lock(&info->stop_lock);
+	info->must_stop = 1;
+	pthread_mutex_unlock(&info->stop_lock);
 }

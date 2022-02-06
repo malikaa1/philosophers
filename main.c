@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 23:41:42 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/06 23:47:09 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	eating(t_philo *philo)
 {
 	if (can_run(philo) && is_still_alive(philo))
 	{
+		pthread_mutex_lock(&philo->info->print_lock);
 		log_eating(philo);
+		pthread_mutex_unlock(&philo->info->print_lock);
 		pthread_mutex_lock(&philo->info->meal_time_lock);
 		philo->last_meal_time = get_time();
 		pthread_mutex_unlock(&philo->info->meal_time_lock);

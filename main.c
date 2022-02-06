@@ -32,7 +32,9 @@ void	thinking(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
+		pthread_mutex_lock(&philo->info->print_lock);
 		log_thinking(philo);
+		pthread_mutex_unlock(&philo->info->print_lock);
 	}
 }
 

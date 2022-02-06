@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:46:54 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 23:43:36 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/06 10:39:54 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,14 @@ int check_error(int ac, char **av)
 	{
 		if (check_args(av[k]) == 0 || is_valid(av[k]) == 0)
 			return (0);
-		k--;
-	}
-	if (ft_atoi(av[1]) == 0)
+		if (ft_atoi(av[k]) <= 0)
 	{
-		printf("nb of philo should be greater than 0\n");
+		printf("arg should be greater than 0\n");
 		return (0);
 	}
+		k--;
+	}
+	
 	if (ft_atoi(av[1]) >= 1000)
 	{
 		printf("nb of philo is too big\n");
@@ -111,7 +112,7 @@ int check_args(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (ft_isdigit(s[i]) == 0 )
+		if (ft_isdigit(s[i]) == 0 && s[0] != '-' && s[0] != '+')
 		{
 			printf("args must be int\n");
 			return (0);

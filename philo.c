@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:32:05 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/05 23:30:55 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:56:06 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,13 @@ int nb_meals_philos(t_philo **philos, int meals, int index)
     return (0);
 }
 
+void mark_as_dead(t_philo* philo)
+{
+    pthread_mutex_lock(&philo->info->dead_lock);
+    philo->is_dead = 1;
+    pthread_mutex_unlock(&philo->info->dead_lock);
+}
+
 void *check_end(void *args)
 {
     t_philo **philos;
@@ -128,7 +135,7 @@ void *check_end(void *args)
             if (is_still_alive(philos[i]) == 0)
             {
                 pthread_mutex_lock(&philos[i]->info->print_lock);
-                philos[i]->is_dead = 1;
+                mark_as_dead(philos[i]);
                 mark_as_stop(philos[i]->info);
                 unlock_all_forks(philos[i]);
                 log_is_dead(philos[i]);

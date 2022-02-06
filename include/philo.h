@@ -52,7 +52,6 @@ void log_eating(t_philo *philo);
 void log_taking_fork(t_philo *philo);
 void log_thinking(t_philo *philo);
 void log_sleeping(t_philo *philo);
-void log_is_dead(t_philo *philo);
 void _sleep(int time_ms);
 void take_fork(t_philo *philo);
 void drop_fork(t_philo *philo);

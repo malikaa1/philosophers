@@ -12,21 +12,23 @@
 
 #include "philo.h"
 
-void eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	if (can_run(philo) && is_still_alive(philo))
 	{
 		log_eating(philo);
+		pthread_mutex_lock(&philo->info->meal_time_lock);
 		philo->last_meal_time = get_time();
+		pthread_mutex_unlock(&philo->info->meal_time_lock);
 		_sleep(philo->info->time_to_eat);
 		drop_fork(philo);
-        pthread_mutex_lock(&philo->info->meals_lock);
+		pthread_mutex_lock(&philo->info->meals_lock);
 		philo->meals = philo->meals + 1;
-        pthread_mutex_unlock(&philo->info->meals_lock);
+		pthread_mutex_unlock(&philo->info->meals_lock);
 	}
 }
 
-void thinking(t_philo *philo)
+void	thinking(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
@@ -34,7 +36,7 @@ void thinking(t_philo *philo)
 	}
 }
 
-void sleeping(t_philo *philo)
+void	sleeping(t_philo *philo)
 {
 	if (can_run(philo) == 1 && is_still_alive(philo))
 	{
@@ -45,9 +47,9 @@ void sleeping(t_philo *philo)
 	}
 }
 
-void *start(void *args)
+void	*start(void *args)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)args;
 	if (philo->id % 2 == 0)
@@ -62,10 +64,13 @@ void *start(void *args)
 	return (NULL);
 }
 
-void free_philos(t_philo **philo)
+void	free_philos(t_philo **philo)
 {
-	t_philo **temp = philo;
-	int i = 0;
+	t_philo	**temp;
+	int		i;
+
+	temp = philo;
+	i = 0;
 	while (temp[i] != NULL)
 	{
 		ft_free(temp[i]);
@@ -74,20 +79,20 @@ void free_philos(t_philo **philo)
 	ft_free(temp);
 }
 
-int exit_with_error(char *message)
+int	exit_with_error(char *message)
 {
 	printf("%s\n", message);
 	return (1);
 }
 
-void free_all(t_info *args, t_philo **philos)
+void	free_all(t_info *args, t_philo **philos)
 {
 	ft_free(args->fork_locks);
 	free_philos(philos);
 	ft_free(args);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_info *args;
 	t_philo **philos;

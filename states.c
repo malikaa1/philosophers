@@ -18,7 +18,9 @@ int	is_still_alive(t_philo *philo)
 	long int	time;
 
 	current_time = get_time();
+	pthread_mutex_lock(&philo->info->meal_time_lock);
 	time = current_time - philo->last_meal_time;
+	pthread_mutex_unlock(&philo->info->meal_time_lock);
 	if (time > (philo->info->time_to_die))
 		return (0);
 	return (1);

@@ -21,6 +21,8 @@ typedef struct s_info
     pthread_mutex_t stop_lock;
     pthread_mutex_t dead_lock;
     pthread_mutex_t print_lock;
+    pthread_mutex_t meals_lock;
+
 
 } t_info;
 

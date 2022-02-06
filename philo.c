@@ -82,6 +82,8 @@ int init_mutex(t_info *args)
         return (-1);
     if (pthread_mutex_init(&args->stop_lock, NULL) != 0)
         return (-1);
+    if (pthread_mutex_init(&args->meals_lock, NULL) != 0)
+        return (-1);
 
     return (1);
 }
@@ -97,7 +99,9 @@ int nb_meals_philos(t_philo **philos, int meals, int index)
     nb_of_philo = philos[i]->info->nb_of_philo;
     while (i < nb_of_philo)
     {
+        pthread_mutex_lock(&philos[i]->info->meals_lock);
         sum_meals = sum_meals + philos[i]->meals;
+        pthread_mutex_unlock(&philos[i]->info->meals_lock);
         i++;
     }
     if (meals == sum_meals)

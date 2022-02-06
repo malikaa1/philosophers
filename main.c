@@ -20,7 +20,9 @@ void eating(t_philo *philo)
 		philo->last_meal_time = get_time();
 		_sleep(philo->info->time_to_eat);
 		drop_fork(philo);
+        pthread_mutex_lock(&philo->info->meals_lock);
 		philo->meals = philo->meals + 1;
+        pthread_mutex_unlock(&philo->info->meals_lock);
 	}
 }
 

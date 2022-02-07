@@ -40,12 +40,6 @@ void	log_thinking(t_philo *philo)
 
 void	log_is_dead(t_philo *philo)
 {
-	long int	since;
-
-	printf("\033[0;31m");
-	since = get_d_time(philo) - (philo->last_meal_time
-			- philo->start_time) - philo->info->time_to_die;
-	printf("%8ld : Philo %d is dead since %ld\n",
-		get_d_time(philo), philo->id, since);
-	printf("\033[0m");
+	printf("%8ld : Philo %d is dead\n",
+		get_d_time(philo), philo->id);
 }

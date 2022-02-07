@@ -36,7 +36,7 @@ t_info	*init_arg(int argc, char **argv)
 
 int	ft_atoi(const char *str)
 {
-	int		sign;
+	int					sign;
 	unsigned int		result;
 
 	sign = 1;

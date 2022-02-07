@@ -6,11 +6,21 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:56:43 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/07 10:29:06 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:50:25 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	exit_thread(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->info->print_lock);
+	mark_as_dead(philo);
+	mark_as_stop(philo->info);
+	unlock_all_forks(philo);
+	log_is_dead(philo);
+	pthread_mutex_unlock(&philo->info->print_lock);
+}
 
 void	*check_end(void *args)
 {
@@ -20,7 +30,8 @@ void	*check_end(void *args)
 
 	i = 0;
 	philos = (t_philo **)args;
-	max_meals = philos[i]->info->nb_of_philo * philos[i]->info->max_times_to_eat;
+	max_meals = philos[i]->info->nb_of_philo
+		* philos[i]->info->max_times_to_eat;
 	while (1)
 	{
 		while (philos[i] != NULL)
@@ -29,12 +40,7 @@ void	*check_end(void *args)
 				return (NULL);
 			if (is_still_alive(philos[i]) == 0)
 			{
-				pthread_mutex_lock(&philos[i]->info->print_lock);
-				mark_as_dead(philos[i]);
-				mark_as_stop(philos[i]->info);
-				unlock_all_forks(philos[i]);
-				log_is_dead(philos[i]);
-				pthread_mutex_unlock(&philos[i]->info->print_lock);
+				exit_thread(philos[i]);
 				return (NULL);
 			}
 			i++;
@@ -63,18 +69,6 @@ void	mark_as_dead(t_philo *philo)
 	pthread_mutex_lock(&philo->info->dead_lock);
 	philo->is_dead = 1;
 	pthread_mutex_unlock(&philo->info->dead_lock);
-}
-
-void	unlock_all_forks(t_philo *philo)
-{
-	int		i;
-       
-	i = 0;
-	while (i < philo->info->nb_of_philo)
-	{
-		pthread_mutex_unlock(&philo->info->fork_locks[i]);
-		i++;
-	}
 }
 
 int	nb_meals_philos(t_philo **philos, int meals, int index)

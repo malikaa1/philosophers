@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:04:59 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/06 23:47:09 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/07 09:58:31 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,38 +68,10 @@ void	*start(void *args)
 	return (NULL);
 }
 
-void	free_philos(t_philo **philo)
-{
-	t_philo	**temp;
-	int		i;
-
-	temp = philo;
-	i = 0;
-	while (temp[i] != NULL)
-	{
-		ft_free(temp[i]);
-		i++;
-	}
-	ft_free(temp);
-}
-
-int	exit_with_error(char *message)
-{
-	printf("%s\n", message);
-	return (1);
-}
-
-void	free_all(t_info *args, t_philo **philos)
-{
-	ft_free(args->fork_locks);
-	free_philos(philos);
-	ft_free(args);
-}
-
 int	main(int argc, char **argv)
 {
-	t_info *args;
-	t_philo **philos;
+	t_info	*args;
+	t_philo	**philos;
 
 	if (check_error(argc, argv) == 0)
 		return (1);

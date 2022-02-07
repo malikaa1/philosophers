@@ -6,7 +6,7 @@
 /*   By: mrahmani <mrahmani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 23:58:30 by mrahmani          #+#    #+#             */
-/*   Updated: 2022/02/04 22:01:15 by mrahmani         ###   ########.fr       */
+/*   Updated: 2022/02/07 09:50:50 by mrahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	log_take_fork(t_philo *philo)
 
 void	take_fork(t_philo *philo)
 {
-	int	id;
-	int	left_id;
+	int		id;
+	int		left_id;
 
 	id = philo->id - 1;
 	left_id = philo->id;
@@ -41,8 +41,8 @@ void	take_fork(t_philo *philo)
 
 void	drop_fork(t_philo *philo)
 {
-	int	id;
-	int	left_id;
+	int		id;
+	int		left_id;
 
 	id = philo->id - 1;
 	left_id = philo->id;

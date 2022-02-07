@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-t_info *init_arg(int argc, char **argv)
+t_info	*init_arg(int argc, char **argv)
 {
-	t_info *info;
+	t_info	*info;
 
 	info = ft_malloc(sizeof(t_info));
 	if (info == NULL)
@@ -34,15 +34,14 @@ t_info *init_arg(int argc, char **argv)
 	return (info);
 }
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	unsigned int result;
-	int sign;
+	unsigned int		result;
+	int		sign;
 
 	sign = 1;
 	result = 0;
-
-	while (*str == '\f' || *str == '\t' || *str == '\v' || *str == '\r' || *str == '\n' || *str == ' ')
+	while (*str == '\r' || *str == '\n' || *str == ' ')
 		str++;
 	if (*str == '-' || *str == '+')
 	{
@@ -55,7 +54,7 @@ int ft_atoi(const char *str)
 		result = 10 * result + (*str - 48);
 		str++;
 		if (result > INT_MAX)
-			break;
+			break ;
 	}
 	if ((result == (unsigned int)INT_MAX + 1 && sign == -1) || result <= INT_MAX)
 		return (sign * result);
@@ -65,7 +64,7 @@ int ft_atoi(const char *str)
 		return (0);
 }
 
-int is_valid(char *value)
+int	is_valid(char *value)
 {
 	if (ft_atoi(value) == -1)
 	{
@@ -75,13 +74,13 @@ int is_valid(char *value)
 	return (1);
 }
 
-int check_error(int ac, char **av)
+int	check_error(int ac, char **av)
 {
-	int k;
+	int		k;
 
 	if (ac != 5 && ac != 6)
 	{
-		printf("Usage : ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [max_meals]\n");
+		printf("Usage:./philo nbr_of_philo time_to_die time_to_eat time_to_sleep [max_meals]\n");
 		return (0);
 	}
 	k = ac - 1;
@@ -90,13 +89,12 @@ int check_error(int ac, char **av)
 		if (check_args(av[k]) == 0 || is_valid(av[k]) == 0)
 			return (0);
 		if (ft_atoi(av[k]) <= 0)
-	{
-		printf("arg should be greater than 0\n");
-		return (0);
-	}
+		{
+			printf("arg should be greater than 0\n");
+			return (0);
+		}
 		k--;
-	}
-	
+	}	
 	if (ft_atoi(av[1]) >= 1000)
 	{
 		printf("nb of philo is too big\n");
@@ -105,9 +103,9 @@ int check_error(int ac, char **av)
 	return (1);
 }
 
-int check_args(char *s)
+int	check_args(char *s)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (s[i] != '\0')
